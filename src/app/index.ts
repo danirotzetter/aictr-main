@@ -1,2 +1,2 @@
 export * from './environment';
-export * from './aictr-main.component';
+export * from './educontrol-main.component';

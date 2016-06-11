@@ -1,14 +1,14 @@
-import { AictrMainPage } from './app.po';
+import { EducontrolMainPage } from './app.po';
 
-describe('aictr-main App', function() {
-  let page: AictrMainPage;
+describe('educontrol-main App', function() {
+  let page: EducontrolMainPage;
 
   beforeEach(() => {
-    page = new AictrMainPage();
+    page = new EducontrolMainPage();
   });
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('aictr-main works!');
+    expect(page.getParagraphText()).toEqual('educontrol-main works!');
   });
 });

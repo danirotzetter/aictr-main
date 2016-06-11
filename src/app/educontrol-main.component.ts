@@ -9,9 +9,9 @@ import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 
 @Component({
   moduleId: module.id,
-  selector: 'aictr-main-app',
-  templateUrl: 'aictr-main.component.html',
-  styleUrls: ['aictr-main.component.css'],
+  selector: 'educontrol-main-app',
+  templateUrl: 'educontrol-main.component.html',
+  styleUrls: ['educontrol-main.component.css'],
   directives: [
     MD_SIDENAV_DIRECTIVES,
     MD_LIST_DIRECTIVES,
@@ -23,6 +23,6 @@ import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
   ],
   providers: [MdIconRegistry]
 })
-export class AictrMainAppComponent {
-  title = 'aictr-main works a little!';
+export class EducontrolMainAppComponent {
+  title = 'educontrol-main works a little!';
 }
