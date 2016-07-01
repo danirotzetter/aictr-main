@@ -1,0 +1,18 @@
+<login>
+    <form [ngFormModel]="loginForm" (ngSubmit)="doLogin()">
+        <!--<input type="text" ngControl="username" placeholder="Username">-->
+        <!--<input type="password" ngControl="password" placeholder="Your password">-->
+        <div>
+            <md-input placeholder="Username"></md-input>
+        </div>
+
+        <div>
+            <md-input placeholder="Password" ngControl="password">
+            </md-input>
+        </div>
+        <div>
+            <button md-raised-button type="submit">Submit</button>
+        </div>
+    </form>
+
+</login>

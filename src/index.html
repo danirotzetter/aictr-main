@@ -14,9 +14,6 @@
 </head>
 <body>
   <educontrol-main-app>Loading...</educontrol-main-app>
-
-  
-
     {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
     <script>
       System.import('system-config.js').then(function () {

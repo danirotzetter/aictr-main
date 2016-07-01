@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,KAAK;EACH,MAAM,EAAE,eAAe",
+"sources": ["educontrol-main.component.sass"],
+"names": [],
+"file": "educontrol-main.component.css"
+}
