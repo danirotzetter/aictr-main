@@ -2,9 +2,10 @@ import{Component} from '@angular/core';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
 import {MdButton} from '@angular2-material/button/button';
-import {User} from './user';
-import {Http} from '@angular/http';
-import {ConfigService} from '../config/config';
+import {Authentication} from '../session/authentication';
+import {
+        Router
+} from '@angular/router';
 
 /**
  * Dealing with login/ logout/ registration functions
@@ -13,16 +14,18 @@ import {ConfigService} from '../config/config';
     moduleId: module.id,
     selector: 'login',
     templateUrl: './login.component.html',
-    directives: [FORM_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton]
+    directives: [FORM_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
+    providers:[Authentication]
 })
 /**
  * Keep track of login data
  */
 export class LoginComponent {
     loginForm:ControlGroup;
-    token:String;
+    token:string;
+    error:boolean=false;
 
-    constructor(fb:FormBuilder, private config:ConfigService, private http:Http) {
+    constructor(fb:FormBuilder, private auth:Authentication, private router:Router) {
         this.loginForm = fb.group({
             username: ["", Validators.required],
             password: ["", Validators.required]
@@ -33,21 +36,12 @@ export class LoginComponent {
      * Execute the login
      */
     doLogin() {
-        var url = this.config.baseUrl + 'users/login';
         var content = JSON.stringify(this.loginForm.value);
-        this.http.post(url, content)
-            .map(res => res.json())
-            .subscribe(
-                data => {
-                    this.token = data.token;
-                },
-                err => {
-                    console.error(err);
-                }
-                ,
-                () => {
-                    console.log('Login request complete');
-                });
+        this.auth.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
+            (token:any)=>this.router.navigate(['/home']),
+            ()=> {
+                this.error = true;
+            });
     }
 
 

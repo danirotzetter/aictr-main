@@ -6,14 +6,20 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
+import {ROUTER_DIRECTIVES,ROUTER_PROVIDERS,Routes} from '@angular/router';
+
+/**
+ * Import custom items
+ */
 import {MenuItem} from './navigation/menu-item';
-import {LoginComponent} from './profile/login.component';
 import {ConfigService} from './config/config';
-import {
-    ROUTER_DIRECTIVES,
-    ROUTER_PROVIDERS,
-    Routes
-} from '@angular/router';
+import {GroupPipe} from './navigation/groupPipe';
+/**
+ * Load components
+ */
+import {HomeComponent} from './navigation/home.component';
+import {LoginComponent} from './profile/login.component';
+import {LogoutComponent} from './profile/logout.component';
 
 
 
@@ -22,21 +28,16 @@ import {
  */
 @Routes([
     { path: "/home",
-        component: EducontrolMainAppComponent },
-
+        component: HomeComponent },
     { path: "/login",
         component: LoginComponent},
     { path: "/logout",
-        component: LoginComponent},
-
-    { path: "/dashboard",
-        component: EducontrolMainAppComponent}
+        component: LogoutComponent}
 ])
 
 /**
  * Define the main component
   */
-
 @Component({
      moduleId: module.id,
     selector: 'educontrol-main-app',
@@ -54,7 +55,8 @@ import {
     ],
     providers: [MdIconRegistry,
     ConfigService // Load configuration values
-    ]
+    ],
+    pipes: [GroupPipe]
 })
 
 
@@ -75,35 +77,45 @@ export class EducontrolMainAppComponent {
 
     //Initialize the menu
     menu = [new MenuItem(
-        'dashboard',
-        '/dashboard',
-        'Dashboard',
-        'Overview of all actions'
+        'home',
+        '/home',
+        'Home',
+        'Home page'
 ),
         new MenuItem(
             'people',
            '/professors',
            'Professors',
-            'Manange professors')
+            'Manange professors',
+        'user')
         ,
         new MenuItem(
             'book',
             '/courses',
             'Courses',
-            'Manange courses')
+            'Manange courses',
+            'user')
         ,
         new MenuItem(
             'account_circle',
             '/account',
             'Profile',
-            'Manage Profile'
-        )
+            'Manage Profile',
+            'user')
+        ,
+        new MenuItem(
+            'vpn_key',
+            '/login',
+            'Login',
+            undefined,
+            'no-user')
         ,
         new MenuItem(
             'exit_to_app',
             '/logout',
-            'Logout'
-        )
+            'Logout',
+            undefined,
+            'user')
     ]
 }
 
