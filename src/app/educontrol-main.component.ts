@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MdToolbar} from '@angular2-material/toolbar';
 import {MdButton} from '@angular2-material/button';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
@@ -8,6 +8,7 @@ import {MdInput} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {MenuItem} from './navigation/menu-item';
 import {LoginComponent} from './profile/login.component';
+import {ConfigService} from './config/config';
 import {
     ROUTER_DIRECTIVES,
     ROUTER_PROVIDERS,
@@ -37,7 +38,7 @@ import {
   */
 
 @Component({
-    moduleId: module.id,
+     moduleId: module.id,
     selector: 'educontrol-main-app',
     templateUrl: 'educontrol-main.component.html',
     styleUrls: ['educontrol-main.component.css'],
@@ -51,8 +52,11 @@ import {
         MdIcon,
         ROUTER_DIRECTIVES,
     ],
-    providers: [MdIconRegistry]
+    providers: [MdIconRegistry,
+    ConfigService // Load configuration values
+    ]
 })
+
 
 
 /**
@@ -60,6 +64,13 @@ import {
  */
 export class EducontrolMainAppComponent {
     title = 'Educontrol';
+
+
+    /**
+     * Constructor
+     * @param configService Provides access to configuration values
+     */
+    constructor(public configService: ConfigService) {}
 
 
     //Initialize the menu
@@ -95,5 +106,7 @@ export class EducontrolMainAppComponent {
         )
     ]
 }
+
+
 
 
