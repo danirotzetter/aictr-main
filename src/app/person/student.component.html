@@ -1,0 +1,52 @@
+<student><h2>Manage students</h2>
+
+    <!-- Add student -->
+
+    <!-- Button-->
+    <button md-mini-fab class="material-override" (click)="showForm=!showForm">
+        <md-icon class="md-24">add</md-icon>
+    </button>
+
+
+    <!--Form-->
+    <form class="form" *ngIf="showForm" [ngFormModel]="studentForm" (ngSubmit)="add()">
+        <md-card>
+            <md-card-title>Add a new student</md-card-title>
+            <md-card-content>
+                <div>
+                    <md-input placeholder="First Name" ngControl="firstName" #firstName="ngForm"></md-input>
+                    <md-input placeholder="Last Name" ngControl="lastName" #lastName="ngForm"></md-input>
+                </div>
+                <div>
+                    <md-input ngControl="email" placeholder="E-Mail" #email="ngForm"
+                              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                        <md-hint align="end">Optional</md-hint>
+                    </md-input>
+                    <md-input placeholder="Date of birth" type="date" ngControl="birthdate">
+                        <md-hint align="end">Optional</md-hint>
+                    </md-input>
+                </div>
+            </md-card-content>
+
+            <!-- Validity messages-->
+            <div>
+                <!--Email-->
+                <div class="form-errors">
+                    <div *ngIf="(!firstName.untouched && firstName.errors && firstName.errors.required) || (!lastName.untouched && lastName.errors && lastName.errors.required)">
+                        Required fields are: first name, last name
+                    </div>
+                    <div *ngIf="!email.untouched && email.errors && email.errors.pattern">
+                        Email is in invalid format
+                    </div>
+                </div>
+            </div>
+
+
+            <md-card-actions align="end">
+                <button md-raised-button class="material-override" type="submit">Add</button>
+            </md-card-actions>
+        </md-card>
+    </form>
+
+
+</student>

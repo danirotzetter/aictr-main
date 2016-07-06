@@ -2,7 +2,7 @@ import{Component} from '@angular/core';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
 import {MdButton} from '@angular2-material/button/button';
-import {Authentication} from '../session/authentication';
+import {AuthenticationService} from '../session/authentication.service';
 import {
         Router
 } from '@angular/router';
@@ -15,7 +15,7 @@ import {
     selector: 'login',
     templateUrl: './login.component.html',
     directives: [FORM_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
-    providers:[Authentication]
+    providers:[AuthenticationService]
 })
 /**
  * Keep track of login data
@@ -25,7 +25,7 @@ export class LoginComponent {
     token:string;
     error:boolean=false;
 
-    constructor(fb:FormBuilder, private auth:Authentication, private router:Router) {
+    constructor(fb:FormBuilder, private auth:AuthenticationService, private router:Router) {
         this.loginForm = fb.group({
             username: ["", Validators.required],
             password: ["", Validators.required]

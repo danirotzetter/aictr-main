@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {MdToolbar} from '@angular2-material/toolbar';
 import {MdButton} from '@angular2-material/button';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
@@ -11,13 +11,17 @@ import {ROUTER_DIRECTIVES,ROUTER_PROVIDERS,Routes} from '@angular/router';
 /**
  * Import custom items
  */
-import {MenuItem} from './navigation/menu-item';
-import {ConfigService} from './config/config';
-import {GroupPipe} from './navigation/groupPipe';
+import {MenuProvider} from './navigation/menu.provider';
+import {ConfigService} from './config/config.service';
+import {GroupPipe} from './navigation/group.pipe';
 /**
  * Load components
  */
 import {HomeComponent} from './navigation/home.component';
+import {TeacherComponent} from './person/teacher.component';
+import {StudentComponent} from './person/student.component';
+import {CourseComponent} from './education/course.component';
+import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './profile/login.component';
 import {LogoutComponent} from './profile/logout.component';
 
@@ -29,6 +33,14 @@ import {LogoutComponent} from './profile/logout.component';
 @Routes([
     { path: "/home",
         component: HomeComponent },
+    { path: "/teachers",
+        component: TeacherComponent },
+    { path: "/students",
+        component: StudentComponent },
+    { path: "/courses",
+        component: CourseComponent },
+    { path: "/profile",
+        component: ProfileComponent },
     { path: "/login",
         component: LoginComponent},
     { path: "/logout",
@@ -43,6 +55,7 @@ import {LogoutComponent} from './profile/logout.component';
     selector: 'educontrol-main-app',
     templateUrl: 'educontrol-main.component.html',
     styleUrls: ['educontrol-main.component.css'],
+    encapsulation: ViewEncapsulation.None, // Allow css to be applied outside template
     directives: [
         MD_SIDENAV_DIRECTIVES,
         MD_LIST_DIRECTIVES,
@@ -54,7 +67,8 @@ import {LogoutComponent} from './profile/logout.component';
         ROUTER_DIRECTIVES,
     ],
     providers: [MdIconRegistry,
-    ConfigService // Load configuration values
+    ConfigService, // Load configuration values
+        MenuProvider
     ],
     pipes: [GroupPipe]
 })
@@ -65,58 +79,23 @@ import {LogoutComponent} from './profile/logout.component';
  * Bootstrap main component
  */
 export class EducontrolMainAppComponent {
-    title = 'Educontrol';
 
+    menu=Array();
 
     /**
      * Constructor
      * @param configService Provides access to configuration values
      */
-    constructor(public configService: ConfigService) {}
+    constructor(public configService: ConfigService, private menuProvider:MenuProvider) {}
 
 
-    //Initialize the menu
-    menu = [new MenuItem(
-        'home',
-        '/home',
-        'Home',
-        'Home page'
-),
-        new MenuItem(
-            'people',
-           '/professors',
-           'Professors',
-            'Manange professors',
-        'user')
-        ,
-        new MenuItem(
-            'book',
-            '/courses',
-            'Courses',
-            'Manange courses',
-            'user')
-        ,
-        new MenuItem(
-            'account_circle',
-            '/account',
-            'Profile',
-            'Manage Profile',
-            'user')
-        ,
-        new MenuItem(
-            'vpn_key',
-            '/login',
-            'Login',
-            undefined,
-            'no-user')
-        ,
-        new MenuItem(
-            'exit_to_app',
-            '/logout',
-            'Logout',
-            undefined,
-            'user')
-    ]
+    /**
+     * Initialize the application
+     */
+    ngOnInit() {
+        //Initialize the menu
+        this.menu = this.menuProvider.getMenu();
+    }
 }
 
 

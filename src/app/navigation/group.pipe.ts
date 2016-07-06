@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform, Injectable} from '@angular/core';
-import {Authentication} from '../session/authentication';
+import {AuthenticationService} from '../session/authentication.service';
 /**
  * Filter menu items depending on the current group
  */
@@ -14,7 +14,7 @@ export class GroupPipe implements PipeTransform {
      * Constructor
      * @param auth
      */
-    constructor(private auth:Authentication) {
+    constructor(private auth:AuthenticationService) {
     }
 
     /**

@@ -1,17 +1,17 @@
 /// <reference path="../typings/main.d.ts" />
 /// <reference path="../typings/index.d.ts" />
 import {bootstrap} from '@angular/platform-browser-dynamic';
-import {enableProdMode, provide} from '@angular/core';
+import {enableProdMode, provide, Injectable} from '@angular/core';
 import {environment} from './app/environment';
 import {HTTP_PROVIDERS, Headers, Http, RequestOptions, RequestMethod} from '@angular/http';
-import {ROUTER_DIRECTIVES,ROUTER_PROVIDERS,Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
 
 /**
  * Custom imports
  */
 import {EducontrolMainAppComponent} from './app/educontrol-main.component';
-import {ConfigService} from './app/config/config';
-import {Authentication} from './app/session/authentication';
+import {ConfigService} from './app/config/config.service';
+import {AuthenticationService} from './app/session/authentication.service';
 
 if (environment.production) {
     enableProdMode();
@@ -22,13 +22,24 @@ if (environment.production) {
  * Custom header configuration
  */
 class DefaultRequestOptions extends RequestOptions {
-    // Always request JSON
+public token:string;
+
     constructor() {
+
+    // Always request JSON
+        var headers= new Headers({
+            'Content-Type': 'application/json'
+        });
+        // Append the token to the header, if logged in
+        var token = localStorage.getItem('token');
+        if (token){
+            // Can append the token to the header
+            headers.append('x-access-token', token);
+        }
+
         super({
             method: RequestMethod.Get,
-            headers: new Headers({
-                'Content-Type': 'application/json'
-            })
+            headers: headers
         });
     }
 }
@@ -41,5 +52,5 @@ bootstrap(EducontrolMainAppComponent, [
     HTTP_PROVIDERS,
     provide(RequestOptions, {useClass: DefaultRequestOptions}), // Custom headers for all requests. Place after HTTP_PROVIDERS
     ROUTER_PROVIDERS,
-    Authentication
+    AuthenticationService
 ]).catch(err => console.log(err));

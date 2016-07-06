@@ -1,26 +1,18 @@
 import{Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '../session/authentication.service';
 /**
- * Dealing with login/ logout/ registration functions
+ * Manage profile
  */
 @Component({
     moduleId: module.id,
-    selector: 'logout',
-    templateUrl: './logout.component.html',
+    selector: 'profile',
+    templateUrl: './profile.component.html',
     providers:[AuthenticationService]
 })
 /**
- * Keep track of login data
  */
-export class LogoutComponent {
+export class ProfileComponent {
     constructor(private auth:AuthenticationService) {
-    }
-
-    /**
-     * Immediately logout
-     */
-    ngOnInit(){
-         this.auth.logout();
     }
 }
 

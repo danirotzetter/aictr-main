@@ -12,11 +12,11 @@
   </md-sidenav>
 
   <!--Toolbar-->
-  <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.open()">
+  <md-toolbar>
+    <button md-icon-button (click)="sidenav.toggle()">
       <md-icon>menu</md-icon>
     </button>
-    {{title}}
+    <span class="header logo"></span>
   </md-toolbar>
 
   <!--Content-->

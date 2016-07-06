@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,KAAK;EACH,MAAM,EAAE,eAAe",
+"mappings": "AAAA,EAAE;EACA,WAAW,EAAE,oCAAM;;AAGrB,KAAK;EACH,MAAM,EAAE,WAAW;;AAErB,gBAAgB;EACd,UAAU,EAAE,gCAAgC;EAC5C,eAAe,EAAE,OAAO;EACxB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,IAAI;;AAId,wBAAwB;EACtB,gBAAgB,EAAE,OAAO;EACzB,KAAK,EAAE,OAAO;;AAEhB,YAAY;EACV,KAAK,EAAE,OAAO",
 "sources": ["educontrol-main.component.sass"],
 "names": [],
 "file": "educontrol-main.component.css"

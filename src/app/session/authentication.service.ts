@@ -2,11 +2,12 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {Http} from '@angular/http';
-import {ConfigService} from '../config/config';
+import {ConfigService} from '../config/config.service';
 import {User} from '../profile/user'
 
+
 @Injectable()
-export class Authentication {
+export class AuthenticationService {
     token:string;
     user:User;
 
@@ -40,7 +41,6 @@ export class Authentication {
                     }
                     ,
                     () => {
-                        console.log('Login request complete');
                     })
         });
     }
@@ -52,7 +52,6 @@ export class Authentication {
     logout() {
         // TODO send to backend
         this.token = undefined;
-        localStorage.removeItem('token');
         return Observable.create((observer:Observer<any>) => {
             observer.next(true);
             observer.complete();
@@ -63,7 +62,7 @@ export class Authentication {
      * Check if the user is logged in
      * @returns {boolean}
      */
-    isLoggedIn() {
+    isLoggedIn():boolean {
         return !!localStorage.getItem('token');
     }
 }

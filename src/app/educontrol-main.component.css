@@ -1,4 +1,20 @@
+h2 {
+  font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 .page {
-  margin: 10% 20% 10% 20%; }
+  margin: 2% 5% 2% 5%; }
+
+span.header.logo {
+  background: url("../img/logo.png") no-repeat;
+  background-size: contain;
+  width: 240px;
+  height: 50px; }
+
+button.material-override {
+  background-color: #0d47a1;
+  color: #80d8ff; }
+
+.form-errors {
+  color: darkred; }
 
 /*# sourceMappingURL=educontrol-main.component.css.map */

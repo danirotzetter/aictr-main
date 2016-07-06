@@ -5,7 +5,7 @@ import {Injectable, Inject} from "@angular/core";
  */
 @Injectable()
 export class ConfigService {
-    public baseUrl: String;
+    public baseUrl: string; // URL to call the backend
     constructor(){
         this.baseUrl = 'http://localhost:3000/';
     }
