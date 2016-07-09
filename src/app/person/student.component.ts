@@ -9,6 +9,7 @@ import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
+import { AlertComponent } from 'ng2-bootstrap/components/alert';
 
 
 // External libraries
@@ -29,7 +30,8 @@ declare var Date:any;
         MdHint,
         MdIcon,
         ROUTER_DIRECTIVES,
-        FORM_DIRECTIVES
+        FORM_DIRECTIVES,
+        AlertComponent
     ],
     providers: [StudentService]
 })

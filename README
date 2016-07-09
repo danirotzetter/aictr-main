@@ -9,3 +9,6 @@ try {
   const conentStr = fs.readFileSync(absoluteFilePath);
   fs.writeFileSync(outputFilePath, conentStr);
 }
+
+
+In order to build packages into the /vendor folder, type "ng build"
