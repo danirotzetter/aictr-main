@@ -26,7 +26,6 @@ import {LoginComponent} from './profile/login.component';
 import {LogoutComponent} from './profile/logout.component';
 
 
-
 /**
  * Routing configuration
  */

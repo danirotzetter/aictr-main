@@ -7,12 +7,12 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {ROUTER_DIRECTIVES,ROUTER_PROVIDERS,Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 
 
 // External libraries
-declare var Date: any;
+declare var Date:any;
 /**
  * Students management
  */
@@ -31,14 +31,15 @@ declare var Date: any;
         ROUTER_DIRECTIVES,
         FORM_DIRECTIVES
     ],
-    providers:[StudentService]
+    providers: [StudentService]
 })
 /**
  *
  */
 export class StudentComponent {
+    selectedStudent:Student; // student to edit
     students:Array<Student>; // List of all students
-    errorMessage:string; // Error messages occurring
+    error:string; // Error messages occurring
 
     studentForm:ControlGroup; // When creating new student
 
@@ -46,8 +47,8 @@ export class StudentComponent {
         this.studentForm = fb.group({
             firstName: ["", Validators.required],
             lastName: ["", Validators.required],
-            email: ["", Validators.required],
-            birthdate: [Date.today().toString('yyyy-MM-dd'), Validators.required]
+            email: [""],
+            birthdate: []
         });
     }
 
@@ -55,16 +56,21 @@ export class StudentComponent {
     /**
      * Load the students list
      */
-    ngOnInit(){
+    ngOnInit() {
         this.studentSvc.index().subscribe(
-            students => this.students=students,
-            error => this.errorMessage=<any>error);
+            students => this.students = students,
+            error => this.error = <any>error);
     }
 
 
-    add(){
+    add() {
         var student = new Student(this.studentForm.value);
-        this.studentSvc.add(student);
+        this.studentSvc.add(student).subscribe(student=> {
+                this.selectedStudent = student;
+            },
+            error => {
+                this.error = <any>error
+            });
     }
 
 }
