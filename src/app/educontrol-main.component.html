@@ -21,6 +21,11 @@
 
   <!--Content-->
 
+<!-- Display alerts-->
+  <alert *ngFor="let alertMessage of alertMessages;let i = index" [type]="alertMessage.type" dismissible="true" (close)="closeAlert(i)" dismissOnTimeout="alertMessage.dismissOnTimeout">
+    {{ alertMessage?.message }}
+  </alert>
+
 
     <div class="page">
   <router-outlet></router-outlet>

@@ -1,4 +1,4 @@
-import{Component, OnInit} from '@angular/core';
+import{Component, OnInit, EventEmitter, Output} from '@angular/core';
 import{StudentService} from './student.service'
 import{Student} from './student.model'
 import {MdButton} from '@angular2-material/button';
@@ -9,8 +9,12 @@ import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
-import { AlertComponent } from 'ng2-bootstrap/components/alert';
 
+/**
+ * Custom items
+ */
+import {AlertMessage, AlertMessageType} from '../base/alert-message';
+import {AlertMessageService} from '../base/alert-message.service';
 
 // External libraries
 declare var Date:any;
@@ -30,8 +34,7 @@ declare var Date:any;
         MdHint,
         MdIcon,
         ROUTER_DIRECTIVES,
-        FORM_DIRECTIVES,
-        AlertComponent
+        FORM_DIRECTIVES
     ],
     providers: [StudentService]
 })
@@ -41,11 +44,12 @@ declare var Date:any;
 export class StudentComponent {
     selectedStudent:Student; // student to edit
     students:Array<Student>; // List of all students
-    error:string; // Error messages occurring
+
+    showForm:boolean; // Whether the students form should be displayed
 
     studentForm:ControlGroup; // When creating new student
 
-    constructor(private fb:FormBuilder, private studentSvc:StudentService) {
+    constructor(private fb:FormBuilder, private studentSvc:StudentService, private alertMessageService:AlertMessageService) {
         this.studentForm = fb.group({
             firstName: ["", Validators.required],
             lastName: ["", Validators.required],
@@ -60,8 +64,9 @@ export class StudentComponent {
      */
     ngOnInit() {
         this.studentSvc.index().subscribe(
-            students => this.students = students,
-            error => this.error = <any>error);
+            students => {this.students = students; console.log('Students list loaded'); this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Students list has been loaded'));},
+            error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
+        );
     }
 
 
@@ -69,11 +74,13 @@ export class StudentComponent {
         var student = new Student(this.studentForm.value);
         this.studentSvc.add(student).subscribe(student=> {
                 this.selectedStudent = student;
+                this.showForm = false;
+                this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been saved'));
             },
-            error => {
-                this.error = <any>error
-            });
+            error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
+        );
     }
+
 
 }
 
