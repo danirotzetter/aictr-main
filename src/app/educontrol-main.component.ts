@@ -119,7 +119,6 @@ export class EducontrolMainAppComponent {
      * @param alertMessage
      */
     onAlertMessageAdded(alertMessage: AlertMessage) {
-        console.log('Received alert: '+JSON.stringify(alertMessage));
         this.alertMessages.push(alertMessage);
     }
 }

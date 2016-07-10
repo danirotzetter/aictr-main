@@ -50,11 +50,12 @@ export class StudentComponent {
     studentForm:ControlGroup; // When creating new student
 
     constructor(private fb:FormBuilder, private studentSvc:StudentService, private alertMessageService:AlertMessageService) {
+        this.selectedStudent=new Student();
         this.studentForm = fb.group({
-            firstName: ["", Validators.required],
-            lastName: ["", Validators.required],
-            email: [""],
-            birthdate: []
+            firstName: [this.selectedStudent.firstName, Validators.required],
+            lastName: [this.selectedStudent.lastName, Validators.required],
+            email: [this.selectedStudent.email],
+            birthday: [this.selectedStudent.birthday]
         });
     }
 
@@ -64,13 +65,16 @@ export class StudentComponent {
      */
     ngOnInit() {
         this.studentSvc.index().subscribe(
-            students => {this.students = students; console.log('Students list loaded'); this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Students list has been loaded'));},
+            students => {this.students = students; this.alertMessageService.add(new AlertMessage(AlertMessageType.INFO, 'Students list has been loaded'));},
             error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
         );
     }
 
 
-    add() {
+    /**
+     * Submit the student values to the database
+     */
+    submitForm() {
         var student = new Student(this.studentForm.value);
         this.studentSvc.add(student).subscribe(student=> {
                 this.selectedStudent = student;
@@ -79,6 +83,23 @@ export class StudentComponent {
             },
             error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
         );
+    }
+
+    /**
+     * Add a new student
+     */
+    addStudent(){
+        this.showForm=true;
+        this.selectedStudent=new Student();
+    }
+
+    /**
+     * Edit a student
+     * @param student
+     */
+    editStudent(student){
+        this.showForm=true;
+        this.selectedStudent=student;
     }
 
 

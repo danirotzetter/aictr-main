@@ -2,9 +2,12 @@
 
     <!-- Add student -->
 
-    <!-- Button-->
-    <button md-mini-fab class="material-override" (click)="showForm=true">
-        <md-icon class="md-24">add</md-icon>
+    <!-- Button to display/ hide form-->
+    <button *ngIf="!showForm" md-mini-fab class="material-override" (click)="addStudent()">
+        <md-icon>add</md-icon>
+    </button>
+    <button *ngIf="showForm" md-mini-fab class="material-override" (click)="showForm=false">
+        <md-icon >remove</md-icon>
     </button>
 
 
@@ -22,7 +25,7 @@
                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                         <md-hint align="end">Optional</md-hint>
                     </md-input>
-                    <md-input type="date" ngControl="birthdate">
+                    <md-input type="date" ngControl="birthday">
                         <md-hint align="end">Date of birth: optional</md-hint>
                     </md-input>
                 </div>
@@ -49,4 +52,21 @@
     </form>
 
 
+    <!--List of items-->
+    <!-- two line list -->
+    <h3>List of students</h3>
+    <ul class="list">
+        <li *ngFor="let student of students">
+            <h3 md-line> {{student.firstName}} {{student.lastName | uppercase}} </h3>
+            <p>Birthday: <span ng-show="student.birthday">{{student.birthday}}</span><span ng-hide="student.birthday">Not set</span></p>
+            <div>
+                <button md-mini-fab class="material-override secondary" (click)="editStudent(student)">
+                    <md-icon class="edit">edit</md-icon>
+                </button>
+                <button md-mini-fab class="material-override secondary">
+                    <md-icon class="delete">delete</md-icon>
+                </button>
+            </div>
+        </li>
+    </ul>
 </student>

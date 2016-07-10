@@ -1,9 +1,10 @@
-export class Person {
-    protected id: number;
-    protected firstName: String;
-    protected lastName: String;
+export class Person{
+    public id: number;
+    public firstName: String;
+    public lastName: String;
+    public email: String;
 
-    constructor() {
-
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
     }
 }
