@@ -13,21 +13,21 @@
 
 
     <!--Form-->
-    <form class="form absolute" *ngIf="showForm" [ngFormModel]="studentForm" (ngSubmit)="submitForm()">
+    <form class="form form-small" *ngIf="showForm" [ngFormModel]="studentForm" (ngSubmit)="submitForm()">
         <md-card>
             <md-card-title *ngIf="!selectedStudent._id">Add a new student</md-card-title>
             <md-card-title *ngIf="selectedStudent._id">Edit student</md-card-title>
             <md-card-content>
                 <div>
-                    <md-input placeholder="First Name" ngControl="firstName" #firstName="ngForm"></md-input>
-                    <md-input placeholder="Last Name" ngControl="lastName" #lastName="ngForm"></md-input>
+                    <md-input class="input-half-width" placeholder="First Name" ngControl="firstName" #firstName="ngForm"></md-input>
+                    <md-input class="input-half-width" placeholder="Last Name" ngControl="lastName" #lastName="ngForm"></md-input>
                 </div>
                 <div>
-                    <md-input ngControl="email" placeholder="E-Mail" #email="ngForm"
+                    <md-input class="input-full-width" ngControl="email" placeholder="E-Mail" #email="ngForm"
                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                         <md-hint align="end">Optional</md-hint>
                     </md-input>
-                    <md-input type="date" ngControl="birthday">
+                    <md-input class="input-half-width" type="date" ngControl="birthday">
                         <md-hint align="end">Date of birth: optional</md-hint>
                     </md-input>
                 </div>
@@ -61,17 +61,19 @@
         <ul class="list">
             <li *ngFor="let student of students; let i=index">
                 <h3> {{student.firstName}} {{student.lastName | uppercase}} </h3>
-                <p>Birthday: <span *ngIf="student.birthday">{{student.birthday}}</span><span *ngIf="!student.birthday">Not set</span>
+                <p>Birthday: <span *ngIf="student.birthday">{{student.birthday | stringToDate | date}}</span><span *ngIf="!student.birthday">Not set</span>
                 </p>
                 <p>Email: <span *ngIf="student.email"><a
                         href="mailto:{{student.email}}">{{student.email}}</a></span><span
                         *ngIf="!student.email">Not set</span></p>
                 <div>
-                    <button md-mini-fab class="material-override" (click)="editStudent(student)">
-                        <md-icon class="edit">edit</md-icon>
+                    <button md-raised-button class="material-override" (click)="editStudent(student)">
+                        <md-icon class="edit center">edit</md-icon>
+                        <span>Edit</span>
                     </button>
-                    <button md-mini-fab class="material-override" (click)="deleteStudent(student, i)">
-                        <md-icon class="delete">delete</md-icon>
+                    <button md-raised-button class="material-override" (click)="deleteStudent(student, i)">
+                        <md-icon class="delete center">delete</md-icon>
+                        <span>Delete</span>
                     </button>
                 </div>
             </li>

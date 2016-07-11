@@ -9,7 +9,7 @@ export class AlertMessageService {
     private alertMessages: AlertMessage[] = [];
 
     constructor() {
-        this.alertAdded = new EventEmitter();
+        this.alertAdded = new EventEmitter<AlertMessage>();
     }
 
     public list(): AlertMessage[] {

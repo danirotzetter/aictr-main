@@ -7,7 +7,7 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 
 /**
@@ -15,6 +15,7 @@ import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/c
  */
 import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
+import {StringToDatePipe} from '../base/string-to-date.pipe';
 
 // External libraries
 declare var Date:any;
@@ -37,7 +38,8 @@ declare var Date:any;
         ROUTER_DIRECTIVES,
         FORM_DIRECTIVES
     ],
-    providers: [StudentService]
+    providers: [StudentService],
+    pipes: [StringToDatePipe]
 })
 /**
  *
@@ -83,7 +85,7 @@ export class StudentComponent {
             student._id = this.selectedStudent._id;
         }
         if (student._id) {
-            // Edit studetn
+            // Edit student
             this.studentSvc.update(student).subscribe(student=> {
                     this.showForm = false;
                     this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been updated'));

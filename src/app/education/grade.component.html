@@ -1,1 +1,14 @@
-<grade><h2>Manage grades</h2></grade>
+<grade><h2>Manage grades</h2>
+
+    <!-- List courses-->
+    <ul class="list">
+    <li (click)="showCourse(i)" *ngFor="let course of courses; let i=index">
+        <h3>{{course.name}}</h3>
+        <div *ngIf="selectedCourseIndex==i">
+
+        </div>
+    </li>
+    </ul>
+
+
+</grade>

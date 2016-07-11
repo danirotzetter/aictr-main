@@ -38,6 +38,13 @@ export class MenuProvider {
             'user')
         ,
         new MenuItem(
+            'functions',
+            '/grades',
+            'Grades',
+            'Manage grades',
+            'user')
+        ,
+        new MenuItem(
             'local_library',
             '/students',
             'Students',

@@ -4,7 +4,9 @@ import {bootstrap} from '@angular/platform-browser-dynamic';
 import {enableProdMode, provide, Injectable} from '@angular/core';
 import {environment} from './app/environment';
 import {HTTP_PROVIDERS, Headers, Http, RequestOptions, RequestMethod} from '@angular/http';
-import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES} from '@angular/router';
+
+
 
 /**
  * Custom imports
@@ -12,6 +14,7 @@ import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
 import {EducontrolMainAppComponent} from './app/educontrol-main.component';
 import {ConfigService} from './app/config/config.service';
 import {AuthenticationService} from './app/session/authentication.service';
+import {APP_ROUTER_PROVIDERS} from "./app/educontrol-main.routes"
 
 if (environment.production) {
     enableProdMode();
@@ -51,6 +54,6 @@ bootstrap(EducontrolMainAppComponent, [
     ConfigService,
     HTTP_PROVIDERS,
     provide(RequestOptions, {useClass: DefaultRequestOptions}), // Custom headers for all requests. Place after HTTP_PROVIDERS
-    ROUTER_PROVIDERS,
+    APP_ROUTER_PROVIDERS,
     AuthenticationService
 ]).catch(err => console.log(err));

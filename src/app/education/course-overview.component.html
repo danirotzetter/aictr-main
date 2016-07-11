@@ -1,4 +1,4 @@
-<course>
+<course-overview>
     <h2>Manage courses</h2>
 
     <!-- Add course -->
@@ -11,23 +11,24 @@
         <md-icon>remove</md-icon>
     </button>
 
-
     <!--Form-->
-    <form class="form absolute" *ngIf="showForm" [ngFormModel]="courseForm" (ngSubmit)="submitForm()">
+    <form class="form form-small" *ngIf="showForm" [ngFormModel]="courseForm" (ngSubmit)="submitForm()">
         <md-card>
             <md-card-title *ngIf="!selectedCourse._id">Add a new course</md-card-title>
             <md-card-title *ngIf="selectedCourse._id">Edit course</md-card-title>
             <md-card-content>
                 <div>
-                    <md-input placeholder="Name" ngControl="name" #name="ngForm"></md-input>
-                    <md-input placeholder="Description" ngControl="description"></md-input>
+                    <md-input class="input-full-width" placeholder="Name" ngControl="name" #name="ngForm"></md-input>
+                </div>
+                <div>
+                    <textarea class="input-full-width" placeholder="Description" ngControl="description"></textarea>
                 </div>
             </md-card-content>
 
             <!-- Validity messages-->
             <div>
                 <div class="form-errors">
-                    <div *ngIf="(!name.untouched && name.errors.required)">
+                    <div *ngIf="(!name.untouched && name.errors?.required)">
                         Required fields are: name
                     </div>
                 </div>
@@ -48,17 +49,22 @@
         <ul class="list">
             <li *ngFor="let course of courses; let i=index">
                 <h3> {{course.name}}</h3>
-                <p>Description: <span *ngIf="course.description">{{course.description}}</span><span
-                        *ngIf="!course.description">Not set</span></p>
+                <p>Description: <span *ngIf="course.description">{{course.description}}</span><span *ngIf="!course.description">Not set</span></p>
                 <div>
-                    <button md-mini-fab class="material-override" (click)="editCourse(course)">
-                        <md-icon class="edit">edit</md-icon>
+                    <button md-raised-button class="material-override" (click)="editCourse(course)">
+                        <md-icon class="edit center">edit</md-icon>
+                        <span>Edit</span>
                     </button>
-                    <button md-mini-fab class="material-override" (click)="deleteCourse(course, i)">
-                        <md-icon class="delete">delete</md-icon>
+                    <button md-raised-button class="material-override" (click)="deleteCourse(course, i)">
+                        <md-icon class="delete center">delete</md-icon>
+                        <span>Delete</span>
+                    </button>
+                    <button  md-raised-button class="material-override" (click)="editExams(course)">
+                        <md-icon class="school center">school</md-icon>
+                        <span>Exams</span>
                     </button>
                 </div>
             </li>
         </ul>
     </div>
-</course>
+</course-overview>

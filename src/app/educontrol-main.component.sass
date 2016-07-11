@@ -13,7 +13,9 @@ h2
   font-family: Roboto, "Helvetica Neue", sans-serif
 
 
-//Override angular2 material colors
+//
+// Override angular2 material colors to the ones from bootstrap
+//
 button.material-override, button.material-override.primary
   color: #fff
   background-color: #337ab7
@@ -54,13 +56,30 @@ button.material-override:hover
   transition-duration: 0.3s
   transition-property: color, background-color, transform
   transform: scale(1.1)
+// Vertically center bootstrap icons
+md-icon.center
+  vertical-align: middle
 
 
 // Forms
 .form-errors
   color: darkred
+// Adapt textarea to match with bootstrap
+textarea
+  display: inline-block
+  margin-bottom: 0
+  vertical-align: middle
+  background-color: #ffffff
+  border: 1px solid #cccccc
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075)
+  transition: border linear 0.2s, box-shadow linear 0.2s
 
-
+.input-full-width
+  width: 100%
+.input-half-width
+  width: 49% // Not 50 in order to be able to consider margins and still position two elements next to each other
+form.form-small
+  max-width: 600px
 // List of items
 ul.list
   padding-left: 0 // Remove indent

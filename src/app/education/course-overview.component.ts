@@ -7,7 +7,7 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 
 /**
@@ -16,16 +16,14 @@ import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/c
 import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
 
-// External libraries
-declare var Date:any;
 /**
  * Courses management
  */
 @Component({
     moduleId: module.id,
-    selector: 'course',
-    templateUrl: './course.component.html',
-    styleUrls: ['./person.css'],
+    selector: 'course-overview',
+    templateUrl: './course-overview.component.html',
+    styleUrls: [],
     directives: [
         MD_SIDENAV_DIRECTIVES,
         MD_LIST_DIRECTIVES,
@@ -42,7 +40,7 @@ declare var Date:any;
 /**
  *
  */
-export class CourseComponent {
+export class CourseOverviewComponent {
     selectedCourse:Course; // course to edit
     courses:Array<Course>; // List of all courses
 
@@ -50,7 +48,7 @@ export class CourseComponent {
 
     courseForm:ControlGroup; // When creating new course
 
-    constructor(private fb:FormBuilder, private courseSvc:CourseService, private alertMessageService:AlertMessageService) {
+    constructor(private fb:FormBuilder, private courseSvc:CourseService, private alertMessageService:AlertMessageService, public router: Router) {
     }
 
 
@@ -83,7 +81,7 @@ export class CourseComponent {
             course._id = this.selectedCourse._id;
         }
         if (course._id) {
-            // Edit studetn
+            // Edit course
             this.courseSvc.update(course).subscribe(course=> {
                     this.showForm = false;
                     this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Course has been updated'));
@@ -144,11 +142,17 @@ export class CourseComponent {
      */
     updateForm(values:Object = {}) {
         this.courseForm = this.fb.group({
-            firstName: [this.selectedCourse.firstName || '', Validators.required],
-            lastName: [this.selectedCourse.lastName || '', Validators.required],
-            email: [this.selectedCourse.email || ''],
-            location: [this.selectedCourse.location || '']
+            name: [this.selectedCourse.name || '', Validators.required],
+            description: [this.selectedCourse.description|| '']
         });
+    }
+
+    /**
+     * Navigate to exam edit page
+     * @param course
+     */
+    editExams(course:Course){
+        this.router.navigate([''+course._id, 'exams']);
     }
 
 }

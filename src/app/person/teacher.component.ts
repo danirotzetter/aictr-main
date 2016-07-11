@@ -7,7 +7,7 @@ import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Routes} from '@angular/router';
+import {ROUTER_DIRECTIVES} from '@angular/router';
 import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 
 /**
@@ -83,7 +83,7 @@ export class TeacherComponent {
             teacher._id = this.selectedTeacher._id;
         }
         if (teacher._id) {
-            // Edit studetn
+            // Edit teacher
             this.teacherSvc.update(teacher).subscribe(teacher=> {
                     this.showForm = false;
                     this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Teacher has been updated'));

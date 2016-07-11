@@ -1,9 +1,9 @@
 export class Course {
-    public id: number;
+    public _id: number;
     public name:string;
     public description:string;
 
-    constructor() {
-
+    constructor(values: Object = {}) {
+        Object.assign(this, values);
     }
 }
