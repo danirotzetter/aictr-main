@@ -4,8 +4,7 @@ import {bootstrap} from '@angular/platform-browser-dynamic';
 import {enableProdMode, provide, Injectable} from '@angular/core';
 import {environment} from './app/environment';
 import {HTTP_PROVIDERS, Headers, Http, RequestOptions, RequestMethod} from '@angular/http';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-
+import {disableDeprecatedForms, provideForms} from '@angular/forms';
 
 
 /**
@@ -55,5 +54,7 @@ bootstrap(EducontrolMainAppComponent, [
     HTTP_PROVIDERS,
     provide(RequestOptions, {useClass: DefaultRequestOptions}), // Custom headers for all requests. Place after HTTP_PROVIDERS
     APP_ROUTER_PROVIDERS,
-    AuthenticationService
+    AuthenticationService,
+    disableDeprecatedForms(),
+    provideForms()
 ]).catch(err => console.log(err));

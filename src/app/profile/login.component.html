@@ -1,13 +1,13 @@
 <login>
-    <form [ngFormModel]="loginForm" (ngSubmit)="doLogin()">
-        <!--<input type="text" ngControl="username" placeholder="Username">-->
-        <!--<input type="password" ngControl="password" placeholder="Your password">-->
+    <form [formGroup]="loginForm" (ngSubmit)="doLogin()">
+        <!--<input type="text" formControlName="username" placeholder="Username">-->
+        <!--<input type="password" formControlName="password" placeholder="Your password">-->
         <div>
-            <md-input placeholder="Username" ngControl="username"></md-input>
+            <md-input placeholder="Username" formControlName="username"></md-input>
         </div>
 
         <div>
-            <md-input placeholder="Password" ngControl="password">
+            <md-input placeholder="Password" formControlName="password">
             </md-input>
         </div>
         <div>

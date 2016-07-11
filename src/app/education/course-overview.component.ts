@@ -8,7 +8,7 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {ROUTER_DIRECTIVES, Router} from '@angular/router';
-import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
+import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 /**
  * Custom items
@@ -33,7 +33,7 @@ import {AlertMessageService} from '../base/alert-message.service';
         MdHint,
         MdIcon,
         ROUTER_DIRECTIVES,
-        FORM_DIRECTIVES
+        REACTIVE_FORM_DIRECTIVES
     ],
     providers: [CourseService]
 })
@@ -46,7 +46,7 @@ export class CourseOverviewComponent {
 
     showForm:boolean; // Whether the courses form should be displayed
 
-    courseForm:ControlGroup; // When creating new course
+    courseForm:FormGroup; // When creating new course
 
     constructor(private fb:FormBuilder, private courseSvc:CourseService, private alertMessageService:AlertMessageService, public router: Router) {
     }

@@ -12,23 +12,23 @@
     </button>
 
     <!--Form-->
-    <form class="form form-small" *ngIf="showForm" [ngFormModel]="courseForm" (ngSubmit)="submitForm()">
+    <form class="form form-small" *ngIf="showForm" [formGroup]="courseForm" (ngSubmit)="submitForm()">
         <md-card>
             <md-card-title *ngIf="!selectedCourse._id">Add a new course</md-card-title>
             <md-card-title *ngIf="selectedCourse._id">Edit course</md-card-title>
             <md-card-content>
                 <div>
-                    <md-input class="input-full-width" placeholder="Name" ngControl="name" #name="ngForm"></md-input>
+                    <md-input class="input-full-width" placeholder="Name" formControlName="name"></md-input>
                 </div>
                 <div>
-                    <textarea class="input-full-width" placeholder="Description" ngControl="description"></textarea>
+                    <textarea class="input-full-width" placeholder="Description" formControlName="description"></textarea>
                 </div>
             </md-card-content>
 
             <!-- Validity messages-->
             <div>
                 <div class="form-errors">
-                    <div *ngIf="(!name.untouched && name.errors?.required)">
+                    <div *ngIf="(!courseForm.controls.name.untouched && courseForm.controls.name.errors?.required)">
                         Required fields are: name
                     </div>
                 </div>

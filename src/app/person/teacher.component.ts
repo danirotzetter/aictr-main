@@ -8,8 +8,7 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
-
+import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 /**
  * Custom items
  */
@@ -35,7 +34,7 @@ declare var Date:any;
         MdHint,
         MdIcon,
         ROUTER_DIRECTIVES,
-        FORM_DIRECTIVES
+        REACTIVE_FORM_DIRECTIVES
     ],
     providers: [TeacherService]
 })
@@ -48,7 +47,7 @@ export class TeacherComponent {
 
     showForm:boolean; // Whether the teachers form should be displayed
 
-    teacherForm:ControlGroup; // When creating new teacher
+    teacherForm:FormGroup; // When creating new teacher
 
     constructor(private fb:FormBuilder, private teacherSvc:TeacherService, private alertMessageService:AlertMessageService) {
     }

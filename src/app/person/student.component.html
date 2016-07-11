@@ -13,21 +13,21 @@
 
 
     <!--Form-->
-    <form class="form form-small" *ngIf="showForm" [ngFormModel]="studentForm" (ngSubmit)="submitForm()">
+    <form class="form form-small" *ngIf="showForm" [formGroup]="studentForm" (ngSubmit)="submitForm()">
         <md-card>
             <md-card-title *ngIf="!selectedStudent._id">Add a new student</md-card-title>
             <md-card-title *ngIf="selectedStudent._id">Edit student</md-card-title>
             <md-card-content>
                 <div>
-                    <md-input class="input-half-width" placeholder="First Name" ngControl="firstName" #firstName="ngForm"></md-input>
-                    <md-input class="input-half-width" placeholder="Last Name" ngControl="lastName" #lastName="ngForm"></md-input>
+                    <md-input class="input-half-width" placeholder="First Name" formControlName="firstName"></md-input>
+                    <md-input class="input-half-width" placeholder="Last Name" formControlName="lastName"></md-input>
                 </div>
                 <div>
-                    <md-input class="input-full-width" ngControl="email" placeholder="E-Mail" #email="ngForm"
+                    <md-input class="input-full-width" formControlName="email" placeholder="E-Mail"
                               pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
                         <md-hint align="end">Optional</md-hint>
                     </md-input>
-                    <md-input class="input-half-width" type="date" ngControl="birthday">
+                    <md-input class="input-half-width" type="date" formControlName="birthday">
                         <md-hint align="end">Date of birth: optional</md-hint>
                     </md-input>
                 </div>
@@ -37,10 +37,10 @@
             <div>
                 <!--Email-->
                 <div class="form-errors">
-                    <div *ngIf="(!firstName.untouched && firstName.errors && firstName.errors.required) || (!lastName.untouched && lastName.errors && lastName.errors.required)">
+                    <div *ngIf="(!studentForm.controls.firstName.untouched && studentForm.controls.firstName.errors && studentForm.controls.firstName.errors.required) || (!studentForm.controls.lastName.untouched && studentForm.controls.lastName.errors && studentForm.controls.lastName.errors.required)">
                         Required fields are: first name, last name
                     </div>
-                    <div *ngIf="!email.untouched && email.errors && email.errors.pattern">
+                    <div *ngIf="!studentForm.controls.email.untouched && studentForm.controls.email.errors && studentForm.controls.email.errors.pattern">
                         Email is in invalid format
                     </div>
                 </div>

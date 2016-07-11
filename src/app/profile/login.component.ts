@@ -1,8 +1,8 @@
 import{Component} from '@angular/core';
-import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
 import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
 import {MdButton} from '@angular2-material/button/button';
 import {AuthenticationService} from '../session/authentication.service';
+import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {
         Router
 } from '@angular/router';
@@ -14,14 +14,14 @@ import {
     moduleId: module.id,
     selector: 'login',
     templateUrl: './login.component.html',
-    directives: [FORM_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
+    directives: [REACTIVE_FORM_DIRECTIVES, MD_INPUT_DIRECTIVES, MdButton],
     providers:[AuthenticationService]
 })
 /**
  * Keep track of login data
  */
 export class LoginComponent {
-    loginForm:ControlGroup;
+    loginForm:FormGroup;
     token:string;
     error:boolean=false;
 
@@ -38,7 +38,7 @@ export class LoginComponent {
     doLogin() {
         var content = JSON.stringify(this.loginForm.value);
         this.auth.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(
-            (token:any)=>this.router.navigate(['/home']),
+            (token:any)=>this.router.navigate(['home']),
             ()=> {
                 this.error = true;
             });

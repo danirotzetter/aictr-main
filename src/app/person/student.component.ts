@@ -6,9 +6,9 @@ import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
-import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
+import {MdIcon} from '@angular2-material/icon';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {FormBuilder, Validators, FORM_DIRECTIVES, ControlGroup} from '@angular/common';
+import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 /**
  * Custom items
@@ -36,7 +36,7 @@ declare var Date:any;
         MdHint,
         MdIcon,
         ROUTER_DIRECTIVES,
-        FORM_DIRECTIVES
+        REACTIVE_FORM_DIRECTIVES
     ],
     providers: [StudentService],
     pipes: [StringToDatePipe]
@@ -50,7 +50,7 @@ export class StudentComponent {
 
     showForm:boolean; // Whether the students form should be displayed
 
-    studentForm:ControlGroup; // When creating new student
+    studentForm:FormGroup; // When creating new student
 
     constructor(private fb:FormBuilder, private studentSvc:StudentService, private alertMessageService:AlertMessageService) {
     }

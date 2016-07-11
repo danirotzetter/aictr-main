@@ -5,7 +5,8 @@
 const map: any = {
   '@angular2-material': 'vendor/@angular2-material',
   'moment': 'vendor/moment/moment.js',
-  'ng2-bootstrap': 'vendor/ng2-bootstrap'
+  'ng2-bootstrap': 'vendor/ng2-bootstrap',
+  '@angular/forms' : 'vendor/@angular/forms'
 };
 
 /** User packages configuration. */
@@ -17,7 +18,8 @@ const packages:any = {
   },
   'moment':{
     format: 'cjs'
-  }
+  },
+  '@angular/forms' : {defaultExtension: 'js', main: 'index.js'}
 };
 
 const materialPkgs:string[] = [
