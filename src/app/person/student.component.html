@@ -60,7 +60,7 @@
         <h3>List of students</h3>
         <ul class="list">
             <li *ngFor="let student of students; let i=index">
-                <h3 md-line> {{student.firstName}} {{student.lastName | uppercase}} </h3>
+                <h3> {{student.firstName}} {{student.lastName | uppercase}} </h3>
                 <p>Birthday: <span *ngIf="student.birthday">{{student.birthday}}</span><span *ngIf="!student.birthday">Not set</span>
                 </p>
                 <p>Email: <span *ngIf="student.email"><a

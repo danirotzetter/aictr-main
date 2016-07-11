@@ -1,1 +1,78 @@
-<teacher><h2>Manage teachers</h2></teacher>
+<teacher>
+    <h2>Manage teachers</h2>
+
+    <!-- Add teacher -->
+
+    <!-- Button to display/ hide form-->
+    <button *ngIf="!showForm" md-mini-fab class="material-override" (click)="addTeacher()">
+        <md-icon>add</md-icon>
+    </button>
+    <button *ngIf="showForm" md-mini-fab class="material-override" (click)="showForm=false">
+        <md-icon>remove</md-icon>
+    </button>
+
+
+    <!--Form-->
+    <form class="form absolute" *ngIf="showForm" [ngFormModel]="teacherForm" (ngSubmit)="submitForm()">
+        <md-card>
+            <md-card-title *ngIf="!selectedTeacher._id">Add a new teacher</md-card-title>
+            <md-card-title *ngIf="selectedTeacher._id">Edit teacher</md-card-title>
+            <md-card-content>
+                <div>
+                    <md-input placeholder="First Name" ngControl="firstName" #firstName="ngForm"></md-input>
+                    <md-input placeholder="Last Name" ngControl="lastName" #lastName="ngForm"></md-input>
+                </div>
+                <div>
+                    <md-input ngControl="email" placeholder="E-Mail" #email="ngForm"
+                              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                        <md-hint align="end">Optional</md-hint>
+                    </md-input>
+                    <md-input placeholder="Location" ngControl="location" #firstName="ngForm"></md-input>
+                </div>
+            </md-card-content>
+
+            <!-- Validity messages-->
+            <div>
+                <!--Email-->
+                <div class="form-errors">
+                    <div *ngIf="(!firstName.untouched && firstName.errors && firstName.errors.required) || (!lastName.untouched && lastName.errors && lastName.errors.required)">
+                        Required fields are: first name, last name
+                    </div>
+                    <div *ngIf="!email.untouched && email.errors && email.errors.pattern">
+                        Email is in invalid format
+                    </div>
+                </div>
+            </div>
+
+
+            <md-card-actions align="end">
+                <button md-raised-button class="material-override" type="submit">Submit</button>
+                <button md-raised-button class="material-override warning" (click)="showForm=false">Cancel</button>
+            </md-card-actions>
+        </md-card>
+    </form>
+
+
+    <!--List-->
+    <div *ngIf="!showForm">
+        <h3>List of teachers</h3>
+        <ul class="list">
+            <li *ngFor="let teacher of teachers; let i=index">
+                <h3> {{teacher.firstName}} {{teacher.lastName | uppercase}} </h3>
+                <p>Location: <span *ngIf="teacher.location">{{teacher.location}}</span><span *ngIf="!teacher.location">Not set</span>
+                </p>
+                <p>Email: <span *ngIf="teacher.email"><a
+                        href="mailto:{{teacher.email}}">{{teacher.email}}</a></span><span
+                        *ngIf="!teacher.email">Not set</span></p>
+                <div>
+                    <button md-mini-fab class="material-override" (click)="editTeacher(teacher)">
+                        <md-icon class="edit">edit</md-icon>
+                    </button>
+                    <button md-mini-fab class="material-override" (click)="deleteTeacher(teacher, i)">
+                        <md-icon class="delete">delete</md-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</teacher>

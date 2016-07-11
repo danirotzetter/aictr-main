@@ -1,6 +1,7 @@
 export class Course {
-    private id: number;
-    private name:string;
+    public id: number;
+    public name:string;
+    public description:string;
 
     constructor() {
 
