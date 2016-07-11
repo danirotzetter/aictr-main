@@ -25,6 +25,7 @@ declare var Date:any;
     moduleId: module.id,
     selector: 'student',
     templateUrl: './student.component.html',
+    styleUrls: ['./person.css'],
     directives: [
         MD_SIDENAV_DIRECTIVES,
         MD_LIST_DIRECTIVES,
@@ -50,13 +51,6 @@ export class StudentComponent {
     studentForm:ControlGroup; // When creating new student
 
     constructor(private fb:FormBuilder, private studentSvc:StudentService, private alertMessageService:AlertMessageService) {
-        this.selectedStudent=new Student();
-        this.studentForm = fb.group({
-            firstName: [this.selectedStudent.firstName, Validators.required],
-            lastName: [this.selectedStudent.lastName, Validators.required],
-            email: [this.selectedStudent.email],
-            birthday: [this.selectedStudent.birthday]
-        });
     }
 
 
@@ -65,7 +59,10 @@ export class StudentComponent {
      */
     ngOnInit() {
         this.studentSvc.index().subscribe(
-            students => {this.students = students; this.alertMessageService.add(new AlertMessage(AlertMessageType.INFO, 'Students list has been loaded'));},
+            students => {
+                this.students = students;
+                this.alertMessageService.add(new AlertMessage(AlertMessageType.INFO, 'Students list has been loaded'));
+            },
             error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
         );
     }
@@ -76,32 +73,57 @@ export class StudentComponent {
      */
     submitForm() {
         var student = new Student(this.studentForm.value);
-        this.studentSvc.add(student).subscribe(student=> {
-                this.selectedStudent = student;
-                this.showForm = false;
-                this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been saved'));
-            },
-            error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
-        );
+
+        if (student._id) {
+            // Edit studetn
+            this.studentSvc.update(student).subscribe(student=> {
+                    this.showForm = false;
+                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been saved'));
+                },
+                error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
+            );
+        } else {
+            // Add new student
+            this.studentSvc.add(student).subscribe(student=> {
+                    this.showForm = false;
+                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been saved'));
+                },
+                error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
+            );
+        }
     }
 
     /**
      * Add a new student
      */
-    addStudent(){
-        this.showForm=true;
-        this.selectedStudent=new Student();
+    addStudent() {
+        this.showForm = true;
+        this.selectedStudent = new Student();
+        this.updateForm(this.selectedStudent);
     }
 
     /**
      * Edit a student
      * @param student
      */
-    editStudent(student){
-        this.showForm=true;
-        this.selectedStudent=student;
+    editStudent(student) {
+        this.showForm = true;
+        this.selectedStudent = student;
+        this.updateForm(this.selectedStudent);
     }
 
+    /**
+     * Update the form values
+     * @param values
+     */
+    updateForm(values:Object = {}) {
+        this.studentForm = this.fb.group({
+            firstName: [this.selectedStudent.firstName || '', Validators.required],
+            lastName: [this.selectedStudent.lastName || '', Validators.required],
+            email: [this.selectedStudent.email || ''],
+            birthday: [this.selectedStudent.birthday || '']
+        });
+    }
 
 }
 

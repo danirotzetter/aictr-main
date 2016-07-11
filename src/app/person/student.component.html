@@ -1,4 +1,6 @@
-<student><h2>Manage students</h2>
+
+<student>
+    <h2>Manage students</h2>
 
     <!-- Add student -->
 
@@ -12,9 +14,10 @@
 
 
     <!--Form-->
-    <form class="form" *ngIf="showForm" [ngFormModel]="studentForm" (ngSubmit)="add()">
+    <form class="form absolute" *ngIf="showForm" [ngFormModel]="studentForm" (ngSubmit)="submitForm()">
         <md-card>
-            <md-card-title>Add a new student</md-card-title>
+            <md-card-title *ngIf="!selectedStudent._id">Add a new student</md-card-title>
+            <md-card-title *ngIf="selectedStudent._id">Edit student</md-card-title>
             <md-card-content>
                 <div>
                     <md-input placeholder="First Name" ngControl="firstName" #firstName="ngForm"></md-input>
@@ -46,10 +49,12 @@
 
 
             <md-card-actions align="end">
-                <button md-raised-button class="material-override" type="submit">Add</button>
+                <button md-raised-button class="material-override" type="submit">Submit</button>
             </md-card-actions>
         </md-card>
     </form>
+
+
 
 
     <!--List of items-->

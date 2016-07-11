@@ -34,6 +34,17 @@ export class StudentService {
             .map(res => res.json())
             .catch(this.handleError);
     }
+    /**
+     *
+     * Update a student
+     * @param student
+     * @returns {Observable<R>}
+     */
+    public update(student:Student) {
+        return this.http.put(this.baseUrl+student._id, JSON.stringify(student))
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
 
     /**
      * Parse the response

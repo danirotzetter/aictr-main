@@ -1,5 +1,5 @@
 export class Person{
-    public id: number;
+    public _id: number;
     public firstName: String;
     public lastName: String;
     public email: String;
