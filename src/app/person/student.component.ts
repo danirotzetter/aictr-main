@@ -58,27 +58,36 @@ export class StudentComponent {
      * Load the students list
      */
     ngOnInit() {
+        this.updateList();
+    }
+
+    /**
+     * Refresh the list of students
+     */
+    updateList() {
         this.studentSvc.index().subscribe(
             students => {
                 this.students = students;
-                this.alertMessageService.add(new AlertMessage(AlertMessageType.INFO, 'Students list has been loaded'));
             },
             error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
         );
     }
-
 
     /**
      * Submit the student values to the database
      */
     submitForm() {
         var student = new Student(this.studentForm.value);
-
+        // Add the selected student's id, if available
+        if (this.selectedStudent._id) {
+            student._id = this.selectedStudent._id;
+        }
         if (student._id) {
             // Edit studetn
             this.studentSvc.update(student).subscribe(student=> {
                     this.showForm = false;
-                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been saved'));
+                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been updated'));
+                    this.updateList();
                 },
                 error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
             );
@@ -86,7 +95,8 @@ export class StudentComponent {
             // Add new student
             this.studentSvc.add(student).subscribe(student=> {
                     this.showForm = false;
-                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been saved'));
+                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'New student has been added'));
+                    this.updateList();
                 },
                 error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
             );
@@ -110,6 +120,22 @@ export class StudentComponent {
         this.showForm = true;
         this.selectedStudent = student;
         this.updateForm(this.selectedStudent);
+    }
+
+    /**
+     * Delete a student
+     * @param student
+     */
+    deleteStudent(student, index) {
+        if (confirm('Delete student? This operation cannot be undone!')) {
+            this.studentSvc.delete(student).subscribe(student=> {
+                    this.showForm = false;
+                    this.students.splice(index, 1);// Remove from the list
+                    this.alertMessageService.add(new AlertMessage(AlertMessageType.SUCCESS, 'Student has been deleted'));
+                },
+                error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
+            );
+        }
     }
 
     /**

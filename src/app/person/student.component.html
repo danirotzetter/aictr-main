@@ -1,4 +1,3 @@
-
 <student>
     <h2>Manage students</h2>
 
@@ -9,7 +8,7 @@
         <md-icon>add</md-icon>
     </button>
     <button *ngIf="showForm" md-mini-fab class="material-override" (click)="showForm=false">
-        <md-icon >remove</md-icon>
+        <md-icon>remove</md-icon>
     </button>
 
 
@@ -50,28 +49,32 @@
 
             <md-card-actions align="end">
                 <button md-raised-button class="material-override" type="submit">Submit</button>
+                <button md-raised-button class="material-override warning" (click)="showForm=false">Cancel</button>
             </md-card-actions>
         </md-card>
     </form>
 
 
-
-
-    <!--List of items-->
-    <!-- two line list -->
-    <h3>List of students</h3>
-    <ul class="list">
-        <li *ngFor="let student of students">
-            <h3 md-line> {{student.firstName}} {{student.lastName | uppercase}} </h3>
-            <p>Birthday: <span ng-show="student.birthday">{{student.birthday}}</span><span ng-hide="student.birthday">Not set</span></p>
-            <div>
-                <button md-mini-fab class="material-override secondary" (click)="editStudent(student)">
-                    <md-icon class="edit">edit</md-icon>
-                </button>
-                <button md-mini-fab class="material-override secondary">
-                    <md-icon class="delete">delete</md-icon>
-                </button>
-            </div>
-        </li>
-    </ul>
+    <!--List-->
+    <div *ngIf="!showForm">
+        <h3>List of students</h3>
+        <ul class="list">
+            <li *ngFor="let student of students; let i=index">
+                <h3 md-line> {{student.firstName}} {{student.lastName | uppercase}} </h3>
+                <p>Birthday: <span *ngIf="student.birthday">{{student.birthday}}</span><span *ngIf="!student.birthday">Not set</span>
+                </p>
+                <p>Email: <span *ngIf="student.email"><a
+                        href="mailto:{{student.email}}">{{student.email}}</a></span><span
+                        *ngIf="!student.email">Not set</span></p>
+                <div>
+                    <button md-mini-fab class="material-override" (click)="editStudent(student)">
+                        <md-icon class="edit">edit</md-icon>
+                    </button>
+                    <button md-mini-fab class="material-override" (click)="deleteStudent(student, i)">
+                        <md-icon class="delete">delete</md-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
 </student>

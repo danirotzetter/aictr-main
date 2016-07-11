@@ -45,6 +45,17 @@ export class StudentService {
             .map(res => res.json())
             .catch(this.handleError);
     }
+    /**
+     *
+     * Delete a student
+     * @param student
+     * @returns {Observable<R>}
+     */
+    public delete(student:Student) {
+        return this.http.delete(this.baseUrl+student._id)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
 
     /**
      * Parse the response
