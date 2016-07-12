@@ -1,3 +1,6 @@
+import '../../lib/date-1.0.0.min.js'
+declare var Date:any;
+
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
@@ -31,9 +34,10 @@ export class StudentService {
      */
     public add(student:Student) {
         return this.http.post(this.baseUrl, JSON.stringify(student))
-            .map(res => res.json())
+            .map(this.extractData)
             .catch(this.handleError);
     }
+
     /**
      *
      * Update a student
@@ -41,10 +45,11 @@ export class StudentService {
      * @returns {Observable<R>}
      */
     public update(student:Student) {
-        return this.http.put(this.baseUrl+student._id, JSON.stringify(student))
-            .map(res => res.json())
+        return this.http.put(this.baseUrl + student._id, JSON.stringify(student))
+            .map(this.extractData)
             .catch(this.handleError);
     }
+
     /**
      *
      * Delete a student
@@ -52,7 +57,7 @@ export class StudentService {
      * @returns {Observable<R>}
      */
     public delete(student:Student) {
-        return this.http.delete(this.baseUrl+student._id)
+        return this.http.delete(this.baseUrl + student._id)
             .map(res => res.json())
             .catch(this.handleError);
     }
@@ -63,8 +68,31 @@ export class StudentService {
      * @returns {any|{}}
      */
     private extractData(res:Response) {
+
         let body = res.json();
+        if (body) {
+            if (body instanceof Array) {
+                body.forEach(function (item) {
+                    StudentService.convertDate(item);
+                });
+            } else {
+                StudentService.convertDate(body);
+            }
+            return body;
+        }
         return body || {};
+    }
+
+    /**
+     * Convert the student's date properties
+     * @param student
+     * @returns {any}
+     */
+    private static convertDate(student):any{
+        if (student.birthday) {
+            student.birthday= Date.parse(student.birthday).toString('yyyy-MM-dd')
+        }
+        return student;
     }
 
     /**

@@ -130,7 +130,6 @@ export class CourseExamsComponent {
          * Edit exam: remove from the list, but do not store. If the user adds the exam anew, it will be re-added and stored
          * @type {FormGroup}
          */
-        console.log('updating with values '+JSON.stringify(exam))
         this.newExam =
             this.fb.group({
                     id: [exam._id],

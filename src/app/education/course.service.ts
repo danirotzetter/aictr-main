@@ -1,3 +1,6 @@
+import '../../lib/date-1.0.0.min.js'
+declare var Date:any;
+
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
@@ -31,7 +34,7 @@ export class CourseService {
      */
     public get(id:number) {
         return this.http.get(this.baseUrl+id)
-            .map(res => res.json())
+            .map(this.extractData)
             .catch(this.handleError);
     }
     /**
@@ -42,7 +45,7 @@ export class CourseService {
      */
     public add(course:Course) {
         return this.http.post(this.baseUrl, JSON.stringify(course))
-            .map(res => res.json())
+            .map(this.extractData)
             .catch(this.handleError);
     }
     /**
@@ -75,21 +78,17 @@ export class CourseService {
      */
     private extractData(res:Response) {
         let body = res.json();
-        if (body instanceof Array){
-        body.forEach((d) => {
-            if (d.date){
-            d.date = new Date(''+d.date);
-                console.log('Converting value ' + d.date);
+        if (body){
+            if (body.exams){
+                body.exams.forEach(function (exam) {
+                    if (exam.date){
+                    exam.date=Date.parse(exam.date).toString('yyyy-MM-dd')
+                    }
+                });
             }
-        });
+            return body;
         }
-        else{
-            if (body.date){
-            body.date = new Date(''+body.date);
-                console.log('Converting value ' + body.date);
-            }
-        }
-        return body || {};
+        else return {};
     }
 
     /**
