@@ -25,6 +25,17 @@ export class CourseService {
 
     /**
      *
+     * Get a specific course
+     * @param id
+     * @returns {Observable<R>}
+     */
+    public get(id:number) {
+        return this.http.get(this.baseUrl+id)
+            .map(res => res.json())
+            .catch(this.handleError);
+    }
+    /**
+     *
      * Add a new course
      * @param course
      * @returns {Observable<R>}
@@ -42,7 +53,7 @@ export class CourseService {
      */
     public update(course:Course) {
         return this.http.put(this.baseUrl+course._id, JSON.stringify(course))
-            .map(res => res.json())
+            .map(this.extractData)
             .catch(this.handleError);
     }
     /**
@@ -64,6 +75,20 @@ export class CourseService {
      */
     private extractData(res:Response) {
         let body = res.json();
+        if (body instanceof Array){
+        body.forEach((d) => {
+            if (d.date){
+            d.date = new Date(''+d.date);
+                console.log('Converting value ' + d.date);
+            }
+        });
+        }
+        else{
+            if (body.date){
+            body.date = new Date(''+body.date);
+                console.log('Converting value ' + body.date);
+            }
+        }
         return body || {};
     }
 

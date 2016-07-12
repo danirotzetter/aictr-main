@@ -8,6 +8,7 @@ import {TeacherComponent} from './person/teacher.component';
 import {StudentComponent} from './person/student.component';
 import {CourseMainComponent} from './education/course-main.component';
 import {CourseOverviewComponent} from './education/course-overview.component';
+import {CourseExamsComponent} from './education/course-exams.component';
 import {GradeComponent} from './education/grade.component';
 import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './profile/login.component';
@@ -29,7 +30,7 @@ export const routes: RouterConfig=[
         component: CourseMainComponent,
         children: [
             { path: '', component: CourseOverviewComponent},
-            { path: ':id/exams', component: CourseOverviewComponent }
+            { path: ':id/exams', component: CourseExamsComponent }
         ]},
     { path: "grades",
         component: GradeComponent },

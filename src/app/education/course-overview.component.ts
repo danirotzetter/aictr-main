@@ -1,6 +1,4 @@
 import{Component, OnInit, EventEmitter, Output} from '@angular/core';
-import{CourseService} from './course.service'
-import{Course} from './course.model'
 import {MdButton} from '@angular2-material/button';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
@@ -13,6 +11,8 @@ import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validator
 /**
  * Custom items
  */
+import{CourseService} from './course.service'
+import{Course} from './course.model'
 import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
 
@@ -152,7 +152,7 @@ export class CourseOverviewComponent {
      * @param course
      */
     editExams(course:Course){
-        this.router.navigate([''+course._id, 'exams']);
+        this.router.navigate(['/courses', course._id, 'exams']);
     }
 
 }

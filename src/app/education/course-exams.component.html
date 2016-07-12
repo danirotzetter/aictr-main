@@ -1,0 +1,89 @@
+<course-exams *ngIf="course">
+    <h2>{{course.name}} <small>Manage exams</small></h2>
+    <hr>
+    <h3>Statistics</h3>
+    <dl>
+        <dt>Exam count</dt>
+        <dd>{{course.exams.length}}</dd>
+    </dl>
+
+    <h3>Exam list</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <!--Add new exam-->
+        <tr [formGroup]="newExam">
+            <td>
+            </td>
+            <td>
+                <md-input class="input-half-width" type="date" formControlName="date">
+                </md-input>
+            </td>
+            <td><md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input></td>
+            <td>
+                <!-- Actions -->
+                <button md-raised-button class="material-override" (click)="addExam()">
+                    <md-icon class="add center">add</md-icon>
+                    <span>Add</span>
+                </button>
+            </td>
+        </tr>
+
+
+        <!-- For each exam, create an entry and a row to be displayed upon click -->
+        <template ngFor [ngForOf]="course.exams" let-exam="
+        $implicit" let-i="index">
+            <tr (click)="selectedExam==exam">
+                <td>{{i}}</td>
+                <td><span *ngIf="exam.date">{{exam.date | stringToDate | date}}</span><span *ngIf="!exam.date">Not set</span></td>
+                <td>{{exam.name}}</td>
+                <td>
+                    <!--Actions-->
+                    <button md-raised-button class="material-override" (click)="editExam(exam, i)">
+                        <md-icon class="edit center">edit</md-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button md-raised-button class="material-override" (click)="deleteExam(exam, i)">
+                        <md-icon class="delete center">delete</md-icon>
+                        <span>Delete</span>
+                    </button>
+                </td>
+            </tr>
+            <tr *ngIf="selectedExam==exam">
+                <td colspan="4">
+
+                    <!-- List of exam results -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                           <th>Student</th>
+                           <th *ngFor="let grade of exam.grades">
+                               {{grade.student.firstName}}, {{grade.student.lastName | uppercase}}
+                           </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Score</td>
+                            <td *ngFor="let grade of exam.grades">{{grade.score}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </td>
+            </tr>
+        </template>
+
+
+        </tbody>
+    </table>
+</course-exams>
