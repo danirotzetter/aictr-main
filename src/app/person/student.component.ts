@@ -8,7 +8,7 @@ import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput, MdHint} from '@angular2-material/input';
 import {MdIcon} from '@angular2-material/icon';
 import {ROUTER_DIRECTIVES} from '@angular/router';
-import {REACTIVE_FORM_DIRECTIVES, FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {REACTIVE_FORM_DIRECTIVES,FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 /**
  * Custom items

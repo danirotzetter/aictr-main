@@ -1,5 +1,4 @@
 import {Exam} from './exam.model';
-
 export class Course {
     public _id: number;
     public name:string;
