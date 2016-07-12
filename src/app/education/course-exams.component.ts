@@ -47,6 +47,7 @@ export class CourseExamsComponent {
     course:Course; // course to edit
     selectedExam:Exam; // Exam selected
     newExam:FormGroup; // New exams to add
+    showForm:boolean = false;
 
     constructor(private fb:FormBuilder, private courseSvc:CourseService, private alertMessageService:AlertMessageService, private router:Router, private activatedRoute:ActivatedRoute) {
     }
@@ -64,7 +65,6 @@ export class CourseExamsComponent {
                 // Load the affected course
                 this.courseSvc.get(params['id']).subscribe(course => {
                         this.course = course;
-                        this.addExam();
                     },
                     // Error fetching the course
                     error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
@@ -88,7 +88,7 @@ export class CourseExamsComponent {
     /**
      * Add a new exam to the course
      */
-    addExam() {
+    submitExam() {
         /**
          * Add exam: add to the course's exam list and store it
          */
@@ -120,6 +120,15 @@ export class CourseExamsComponent {
             );
         }
 
+        this.showForm=false;
+    }
+
+
+    /**
+     * Add a new exam
+     */
+    addExam(){
+        this.showForm=true;
         // Prepare form for another entry
         this.newExam =
             this.fb.group({
@@ -128,18 +137,14 @@ export class CourseExamsComponent {
                     date: [],
                 }
             );
-
     }
-
+    
     /**
      * Edit an existing exam
      * @param exam
      */
     editExam(exam:Exam, idx:number) {
-        /**
-         * Edit exam
-         * @type {FormGroup}
-         */
+        this.showForm=true;
         this.newExam = this.fb.group({
                     _id: [exam._id],
                     name: [exam.name, Validators.required],

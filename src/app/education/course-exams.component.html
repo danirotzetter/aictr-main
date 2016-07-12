@@ -8,11 +8,13 @@
     </dl>
 
     <h3>Exam list</h3>
-    <button md-raised-button class="material-override" (click)="editStudent(student)">
-        <md-icon class="edit center">edit</md-icon>
-        <span>Edit</span>
+    <div *ngIf="newExam">test {{newExam.value | json}}</div>
+
+    <!-- Button to display/ hide form-->
+    <button md-raised-button *ngIf="!showForm" class="material-override" (click)="addExam()">
+        <md-icon class="center">add</md-icon>
+        <span>Add new exam</span>
     </button>
-    test {{newExam.value | json}}
 
     <table class="table table-hover">
         <thead>
@@ -26,7 +28,7 @@
         <tbody>
 
         <!--Add new exam-->
-        <tr [formGroup]="newExam">
+        <tr [formGroup]="newExam" *ngIf="showForm">
             <td>
                 <input type="hidden" formControlName="_id">
             </td>
@@ -37,7 +39,7 @@
             <td><md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input></td>
             <td>
                 <!-- Actions -->
-                <button md-raised-button class="material-override" (click)="addExam()">
+                <button md-raised-button class="material-override" (click)="submitExam()">
                     <md-icon *ngIf="newExam.value._id" class="edit center">edit</md-icon>
                     <md-icon *ngIf="!newExam.value._id" class="add center">add</md-icon>
                     <span *ngIf="newExam.value._id">Update</span>
@@ -46,7 +48,7 @@
             </td>
         </tr>
         <!-- Validity messages-->
-        <tr *ngIf="!newExam.controls.name.untouched && newExam.controls.name.errors && newExam.controls.name.errors.required">
+        <tr *ngIf="showForm && !newExam.controls.name.untouched && newExam.controls.name.errors && newExam.controls.name.errors.required">
             <td colspan="4" class="form-errors">Required fields are name</td>
         </tr>
 
@@ -55,7 +57,7 @@
         <template ngFor [ngForOf]="course.exams" let-exam="
         $implicit" let-i="index">
             <!--Highlight exam that is currently being edited -->
-            <tr (click)="selectedExam==exam" [ngClass]="{'info': newExam.value._id==exam._id}">
+            <tr (click)="selectedExam==exam" [ngClass]="{'info': selectedExam?._id==exam._id}">
                 <td>{{i}}</td>
                 <td><span *ngIf="exam.date">{{exam.date | stringToDate | date}}</span><span *ngIf="!exam.date">Not set</span></td>
                 <td>{{exam.name}}</td>
@@ -96,8 +98,6 @@
                 </td>
             </tr>
         </template>
-
-
         </tbody>
     </table>
 </course-exams>
