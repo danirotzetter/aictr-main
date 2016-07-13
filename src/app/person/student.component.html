@@ -58,7 +58,7 @@
     <!--List-->
     <div *ngIf="!showForm">
         <h3>List of students</h3>
-        <ul class="list">
+        <ul class="list divider">
             <li *ngFor="let student of students; let i=index">
                 <h3> {{student.firstName}} {{student.lastName | uppercase}} </h3>
                 test {{student.birthday}}

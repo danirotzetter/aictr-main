@@ -154,6 +154,13 @@ export class CourseOverviewComponent {
     editExams(course:Course){
         this.router.navigate(['/courses', course._id, 'exams']);
     }
+    /**
+     * Navigate to student assignment page
+     * @param course
+     */
+    assignStudents(course:Course){
+        this.router.navigate(['/courses', course._id, 'student-assignment']);
+    }
 
 }
 

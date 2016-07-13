@@ -46,22 +46,26 @@
     <!--List-->
     <div *ngIf="!showForm">
         <h3>List of courses</h3>
-        <ul class="list">
+        <ul class="list divider">
             <li *ngFor="let course of courses; let i=index">
                 <h3> {{course.name}}</h3>
                 <p>Description: <span *ngIf="course.description">{{course.description}}</span><span *ngIf="!course.description">Not set</span></p>
                 <div>
                     <button md-raised-button class="material-override" (click)="editCourse(course)">
-                        <md-icon class="edit center">edit</md-icon>
+                        <md-icon class="center">edit</md-icon>
                         <span>Edit</span>
                     </button>
                     <button md-raised-button class="material-override" (click)="deleteCourse(course, i)">
-                        <md-icon class="delete center">delete</md-icon>
+                        <md-icon class="center">delete</md-icon>
                         <span>Delete</span>
                     </button>
                     <button  md-raised-button class="material-override" (click)="editExams(course)">
-                        <md-icon class="school center">school</md-icon>
+                        <md-icon class="center">school</md-icon>
                         <span>Exams</span>
+                    </button>
+                    <button  md-raised-button class="material-override" (click)="assignStudents(course)">
+                        <md-icon class="center">local_library</md-icon>
+                        <span>Assign students</span>
                     </button>
                 </div>
             </li>

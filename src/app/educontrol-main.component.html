@@ -1,4 +1,4 @@
-<md-sidenav-layout fullscreen>
+<md-sidenav-layout fullscreen class="app-container">
 
   <!-- Menu -->
   <md-sidenav #sidenav mode="side" opened="true">
@@ -12,12 +12,13 @@
   </md-sidenav>
 
   <!--Toolbar-->
-  <md-toolbar>
-    <button md-icon-button (click)="sidenav.toggle()">
-      <md-icon>menu</md-icon>
+  <div class="header">
+    <div class="header-img"></div>
+    <button md-button (click)="sidenav.toggle()">
+      <md-icon class="center">menu</md-icon  >
     </button>
-    <span class="header logo"></span>
-  </md-toolbar>
+    <span class="logo"></span>
+  </div>
 
   <!--Content-->
 

@@ -1,13 +1,24 @@
 // General page settings
 .page
   margin: 2% 5% 2% 5%
+.app-container
+  background: url('../img/background.png') no-repeat center center fixed
+  background-size: cover
 
-// Header logo
-span.header.logo
+// Header
+div.header
+  height: 6em
+  //background-color: #113551
+  background: url('../img/background-header.png')  center repeat-x
+  background-size: auto 100%
+div.header span.logo
+  position: absolute
   background: url('../img/logo.png') no-repeat
   background-size: contain
   width: 240px
   height: 50px
+div.header button
+  color: white
 
 h2
   font-family: Roboto, "Helvetica Neue", sans-serif
@@ -59,6 +70,8 @@ button.material-override:hover
 // Vertically center bootstrap icons
 md-icon.center
   vertical-align: middle
+// Mini-version of buttons
+button.material-override.md-24
 
 
 // Forms
@@ -86,10 +99,10 @@ ul.list
 .list li
   list-style-type: none
   padding: 1em
-.list li:hover
-  background-color: aliceblue
+.list li:hover, tr.hover:hover
+  background-color: #abcbdd
 // Add HR after li
-.list li:after
+.list.divider li:after
   content: ""
   display: block
   height: 1px

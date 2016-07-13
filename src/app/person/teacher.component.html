@@ -56,7 +56,7 @@
     <!--List-->
     <div *ngIf="!showForm">
         <h3>List of teachers</h3>
-        <ul class="list">
+        <ul class="list divider">
             <li *ngFor="let teacher of teachers; let i=index">
                 <h3> {{teacher.firstName}} {{teacher.lastName | uppercase}} </h3>
                 <p>Location: <span *ngIf="teacher.location">{{teacher.location}}</span><span *ngIf="!teacher.location">Not set</span>

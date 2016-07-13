@@ -9,6 +9,7 @@ import {StudentComponent} from './person/student.component';
 import {CourseMainComponent} from './education/course-main.component';
 import {CourseOverviewComponent} from './education/course-overview.component';
 import {CourseExamsComponent} from './education/course-exams.component';
+import {CourseAssignmentComponent} from './education/course-assignment.component';
 import {GradeComponent} from './education/grade.component';
 import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './profile/login.component';
@@ -30,7 +31,8 @@ export const routes: RouterConfig=[
         component: CourseMainComponent,
         children: [
             { path: '', component: CourseOverviewComponent},
-            { path: ':id/exams', component: CourseExamsComponent }
+            { path: ':id/exams', component: CourseExamsComponent },
+            { path: ':id/student-assignment', component: CourseAssignmentComponent }
         ]},
     { path: "grades",
         component: GradeComponent },

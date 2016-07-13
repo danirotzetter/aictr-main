@@ -5,6 +5,8 @@
     <dl>
         <dt>Exam count</dt>
         <dd>{{course.exams.length}}</dd>
+        <dt *ngIf="selectedExam">Current exam</dt>
+        <dd *ngIf="selectedExam">{{selectedExam.name}}, {{selectedExam.date | stringToDate | date}}</dd>
     </dl>
 
     <h3>Exam list</h3>
@@ -16,7 +18,7 @@
         <span>Add new exam</span>
     </button>
 
-    <table class="table table-hover">
+    <table class="table">
         <thead>
         <tr>
             <th>#</th>
@@ -57,8 +59,8 @@
         <template ngFor [ngForOf]="course.exams" let-exam="
         $implicit" let-i="index">
             <!--Highlight exam that is currently being edited -->
-            <tr (click)="selectedExam==exam" [ngClass]="{'info': selectedExam?._id==exam._id}">
-                <td>{{i}}</td>
+            <tr class="hover" (click)="selectedExam=exam" [ngClass]="{'info': selectedExam?._id==exam._id}">
+                <td>{{i+1}}</td>
                 <td><span *ngIf="exam.date">{{exam.date | stringToDate | date}}</span><span *ngIf="!exam.date">Not set</span></td>
                 <td>{{exam.name}}</td>
                 <td>
@@ -84,12 +86,14 @@
                            <th *ngFor="let grade of exam.grades">
                                {{grade.student.firstName}}, {{grade.student.lastName | uppercase}}
                            </th>
+                            <th *ngIf="exam.grades.length==0" rowspan="2"><small>None</small></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>Score</td>
                             <td *ngFor="let grade of exam.grades">{{grade.score}}</td>
+                            <td *ngIf="exam.grades.length==0" rowspan="2"><small>No grade recorded yet</small></td>
                         </tr>
                         </tbody>
                     </table>
