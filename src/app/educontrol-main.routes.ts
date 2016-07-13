@@ -21,6 +21,11 @@ import {LogoutComponent} from './profile/logout.component';
  * Routing configuration
  */
 export const routes: RouterConfig=[
+    {
+        path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+    },
     { path: "home",
         component: HomeComponent },
     { path: "teachers",

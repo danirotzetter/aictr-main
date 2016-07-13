@@ -31,6 +31,13 @@ export class MenuProvider {
             'user')
         ,
         new MenuItem(
+            'local_library',
+            '/students',
+            'Students',
+            'Manage students',
+            'user')
+        ,
+        new MenuItem(
             'book',
             '/courses',
             'Courses',
@@ -45,15 +52,8 @@ export class MenuProvider {
             'user')
         ,
         new MenuItem(
-            'local_library',
-            '/students',
-            'Students',
-            'Manage students',
-            'user')
-        ,
-        new MenuItem(
             'account_circle',
-            '/account',
+            '/profile',
             'Profile',
             'Manage Profile',
             'user')
