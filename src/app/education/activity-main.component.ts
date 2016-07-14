@@ -4,15 +4,15 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
  */
 @Component({
     moduleId: module.id,
-    selector: 'project-main',
-    templateUrl: './project-main.component.html',
+    selector: 'activity-main',
+    templateUrl: './activity-main.component.html',
     styleUrls: [],
     directives: [ROUTER_DIRECTIVES]
 })
 /**
- * Base component for projects
+ * Base component for activities
  */
-export class ProjectMainComponent {
+export class ActivityMainComponent {
    
 }
 

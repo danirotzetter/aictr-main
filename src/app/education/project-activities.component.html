@@ -6,7 +6,7 @@
         <dt>Activity count</dt>
         <dd>{{project.activities.length}}</dd>
         <dt *ngIf="selectedActivity">Current activity</dt>
-        <dd *ngIf="selectedActivity">{{selectedActivity.name}}, {{selectedActivity.date | stringToDate | date}}</dd>
+        <dd *ngIf="selectedActivity">{{selectedActivity.name}}</dd>
     </dl>
 
     <h3>Activity list</h3>
@@ -22,7 +22,6 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Date</th>
             <th>Name</th>
             <th>Actions</th>
         </tr>
@@ -33,10 +32,6 @@
         <tr [formGroup]="newActivity" *ngIf="showForm">
             <td>
                 <input type="hidden" formControlName="_id">
-            </td>
-            <td>
-                <md-input class="input-half-width" type="date" formControlName="date">
-                </md-input>
             </td>
             <td><md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input></td>
             <td>
@@ -55,7 +50,7 @@
         </tr>
         <!-- Validity messages-->
         <tr *ngIf="showForm && !newActivity.controls.name.untouched && newActivity.controls.name.errors && newActivity.controls.name.errors.required">
-            <td colspan="4" class="form-errors">Required fields are name</td>
+            <td colspan="3" class="form-errors">Required fields are name</td>
         </tr>
 
 
@@ -65,7 +60,6 @@
             <!--Highlight activity that is currently being edited -->
             <tr class="hover" (click)="selectedActivity=activity" [ngClass]="{'info': selectedActivity?._id==activity._id}">
                 <td>{{i+1}}</td>
-                <td><span *ngIf="activity.date">{{activity.date | stringToDate | date}}</span><span *ngIf="!activity.date">Not set</span></td>
                 <td>{{activity.name}}</td>
                 <td>
                     <!--Actions-->
@@ -77,10 +71,14 @@
                         <md-icon class="delete center">delete</md-icon>
                         <span>Delete</span>
                     </button>
+                    <button  md-raised-button class="material-override" (click)="assignMetrics(activity)">
+                        <md-icon class="center">poll</md-icon>
+                        <span>Assign metrics</span>
+                    </button>
                 </td>
             </tr>
             <tr *ngIf="selectedActivity==activity && !showForm">
-                <td colspan="4">
+                <td colspan="3">
 
                     <!-- List of activity results -->
                     <table class="table">

@@ -44,7 +44,7 @@ import{Activity} from './activity.model'
 /**
  *
  */
-export class ProjectActivitysComponent {
+export class ProjectActivitiesComponent {
     project:Project; // project to edit
     selectedActivity:Activity; // Activity selected
     newActivity:FormGroup; // New activities to add
@@ -99,7 +99,6 @@ export class ProjectActivitysComponent {
                 for (var i = 0; i < this.project.activities.length; i++) {
                     var activity = this.project.activities[i];
                     if (activity._id == this.newActivity.value._id) {
-                        activity.date = this.newActivity.value.date;
                         activity.name = this.newActivity.value.name;
                     }
                 }
@@ -109,7 +108,6 @@ export class ProjectActivitysComponent {
                 this.project.activities.push(
                     new Activity({
                         name: this.newActivity.value.name,
-                        date: this.newActivity.value.date,
                     })
                 );
             }
@@ -135,7 +133,6 @@ export class ProjectActivitysComponent {
             this.fb.group({
                     _id: [],
                     name: ['', Validators.required],
-                    date: [],
                 }
             );
     }
@@ -149,7 +146,6 @@ export class ProjectActivitysComponent {
         this.newActivity = this.fb.group({
                     _id: [activity._id],
                     name: [activity.name, Validators.required],
-                    date: [activity.date],
                 }
             );
     }
@@ -176,6 +172,14 @@ export class ProjectActivitysComponent {
      */
     goBack(){
         this._location.back();
+    }
+
+    /**
+     * Navigate to metric assignment page
+     * @param activity
+     */
+    assignMetrics(activity:Activity){
+        this.router.navigate(['/activities', activity._id, 'metric-assignment']);
     }
 
 }

@@ -39,6 +39,17 @@ export class ProjectService {
     }
     /**
      *
+     * Get a project based on an activity
+     * @param activityId
+     * @returns {Observable<R>}
+     */
+    public getByActivity(activityId:number) {
+        return this.http.get(this.baseUrl+'byActivity?activityId='+activityId)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    /**
+     *
      * Add a new project
      * @param project
      * @returns {Observable<R>}
@@ -79,13 +90,13 @@ export class ProjectService {
     private extractData(res:Response) {
         let body = res.json();
         if (body){
-            if (body.activities){
+            /*if (body.activities){
                 body.activities.forEach(function (activity) {
                     if (activity.date){
                     activity.date=Date.parse(activity.date).toString('yyyy-MM-dd')
                     }
                 });
-            }
+            }*/
             return body;
         }
         else return {};

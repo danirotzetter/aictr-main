@@ -1,5 +1,5 @@
-<project-assignment *ngIf="project">
-    <h2>{{project.name}}
+<activity-assignment *ngIf="project">
+    <h2>Activity "{{getActivity()?.name}}" ({{project.name}})
         <small>Assign metrics</small>
     </h2>
 
@@ -12,7 +12,7 @@
                 <h3>Metrics currently assigned</h3>
                 <ul class="list">
                     <li *ngFor="let metric of project.metrics; let i=index">
-                        <span> {{metric.firstName}} {{metric.lastName | uppercase}}</span>
+                        <span> {{metric.name}}</span>
                         <!-- Unassign-->
                         <span class="align-right">
                         <button md-mini-fab class="material-override" (click)="unAssign(metric, i)">
@@ -39,7 +39,7 @@
                         <button md-mini-fab class="material-override" (click)="assign(metric)">
                             <md-icon class="md-24">arrow_back</md-icon>
                         </button>
-                        <span>{{metric.firstName}} {{metric.lastName | uppercase}}</span>
+                        <span>{{metric.name}}</span>
                     </li>
                 </ul>
             </div>
@@ -54,4 +54,4 @@
     </md-card-actions>
 
 
-</project-assignment>
+</activity-assignment>

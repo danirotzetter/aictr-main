@@ -16,8 +16,9 @@ import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
 import{ProjectService} from './project.service'
 import{MetricService} from '../education/metric.service'
-import{Project} from './project.model'
 import{Metric} from '../education/metric.model'
+import{Project} from '../education/project.model'
+import{Activity} from '../education/activity.model'
 import {FilterMetricsPipe} from './filter-metrics.pipe'
 
 /**
@@ -25,9 +26,9 @@ import {FilterMetricsPipe} from './filter-metrics.pipe'
  */
 @Component({
     moduleId: module.id,
-    selector: 'project-assignment',
-    templateUrl: './project-assignment.component.html',
-    styleUrls: ['./project-assignment.css'],
+    selector: 'activity-assignment',
+    templateUrl: './activity-assignment.component.html',
+    styleUrls: ['./activity-assignment.css'],
     directives: [
         MD_SIDENAV_DIRECTIVES,
         MD_LIST_DIRECTIVES,
@@ -45,8 +46,9 @@ import {FilterMetricsPipe} from './filter-metrics.pipe'
 /**
  *
  */
-export class ProjectAssignmentComponent {
-    project:Project; // project to edit
+export class ActivityAssignmentComponent {
+    project:Project; // Project containing the activity to edit
+    activityId:number; // Id of the activity to edit
     metrics:Array<Metric>; // list of metrics
 
     constructor(private fb:FormBuilder, private metricSvc:MetricService,private projectSvc:ProjectService, private alertMessageService:AlertMessageService, private router:Router, private activatedRoute:ActivatedRoute, private _location: Location) {
@@ -62,8 +64,8 @@ export class ProjectAssignmentComponent {
          * Load the parameters from the route
          */
         this.activatedRoute.params.subscribe(params => {
-            var projectId=params['id'];
-            this.reloadProject(projectId);
+            this.activityId=params['id'];
+            this.reloadActivity(this.activityId);
             },
             // Error reading parameters
             error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
@@ -81,12 +83,12 @@ export class ProjectAssignmentComponent {
 
 
     /**
-     * Reloads the project
-     * @param projectId
+     * Reloads the activity
+     * @param activityId
      */
-    reloadProject(projectId:number){
+    reloadActivity(activityId:number){
         // Load the affected project
-        this.projectSvc.get(projectId).subscribe(project => {
+        this.projectSvc.getByActivity(activityId).subscribe(project => {
                 this.project = project;
             },
             // Error fetching the project
@@ -126,7 +128,7 @@ export class ProjectAssignmentComponent {
      * Cancel assignments: reload project from database
      */
     cancel(){
-        this.reloadProject(this.project._id);
+        this.reloadActivity(this.project._id);
     }
 
     /**
@@ -136,6 +138,19 @@ export class ProjectAssignmentComponent {
         this._location.back();
     }
 
+    /**
+     * Get the activity object out of the containing project
+     * @returns Activity
+     */
+    getActivity():Activity{
+        if (this.project) {
+            for (var i = 0; i < this.project.activities.length; i++) {
+                if (this.project.activities[i]._id == this.activityId) {
+                    return this.project.activities[i];
+                }
+            }
+        }
+    }
 
 }
 
