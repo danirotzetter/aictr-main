@@ -7,19 +7,19 @@ import {MdButton} from '@angular2-material/button';
 /**
  * Custom items
  */
-import{GradeService} from './grade.service';
-import{CourseService} from './course.service';
-import{Course} from './course.model';
+import{ValueService} from './value.service';
+import{ProjectService} from './project.service';
+import{Project} from './project.model';
 import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
 
 /**
- * Grade management
+ * Value management
  */
 @Component({
     moduleId: module.id,
-    selector: 'grade',
-    templateUrl: './grade.component.html',
+    selector: 'value',
+    templateUrl: './value.component.html',
     directives: [
         MdButton,
         MdInput,
@@ -28,20 +28,20 @@ import {AlertMessageService} from '../base/alert-message.service';
         ROUTER_DIRECTIVES,
         FORM_DIRECTIVES
     ],
-    providers:[GradeService, CourseService]
+    providers:[ValueService, ProjectService]
 })
 /**
- * Component to manage grades
+ * Component to manage values
  */
-export class GradeComponent {
-    selectedCourseIndex:number=-1; // course to edit
-    courses:Array<Course>=[]; // List of all courses
+export class ValueComponent {
+    selectedProjectIndex:number=-1; // project to edit
+    projects:Array<Project>=[]; // List of all projects
 
     /**
      * Constructor
-     * @param grades
+     * @param values
      */
-    constructor(private grades:GradeService, private courseSvc:CourseService,private fb:FormBuilder, private alertMessageService:AlertMessageService) {
+    constructor(private values:ValueService, private projectSvc:ProjectService,private fb:FormBuilder, private alertMessageService:AlertMessageService) {
         
     }
 
@@ -53,23 +53,23 @@ export class GradeComponent {
     }
 
     /**
-     * Refresh the list of courses
+     * Refresh the list of projects
      */
     updateList() {
-        this.courseSvc.index().subscribe(
-            courses => {
-                this.courses = courses;
+        this.projectSvc.index().subscribe(
+            projects => {
+                this.projects = projects;
             },
             error => this.alertMessageService.add(new AlertMessage(AlertMessageType.DANGER, error))
         );
     }
 
     /**
-     * Display a specific course
-     * @param idx Course index in the list
+     * Display a specific project
+     * @param idx Project index in the list
      */
-    showCourse(idx:number){
-        this.selectedCourseIndex = (this.selectedCourseIndex==idx? undefined:idx);
+    showProject(idx:number){
+        this.selectedProjectIndex = (this.selectedProjectIndex==idx? undefined:idx);
     }
 
 }

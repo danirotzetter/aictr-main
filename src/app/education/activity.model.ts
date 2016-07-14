@@ -1,9 +1,8 @@
-export class Person{
+export class Activity{
     public _id: number;
-    public firstName: String;
-    public lastName: String;
-    public email: String;
-
+    public date: Date;
+    public name: String;
+    
     constructor(values: Object = {}) {
         Object.assign(this, values);
     }

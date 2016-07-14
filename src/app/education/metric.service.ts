@@ -4,23 +4,23 @@ declare var Date:any;
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
-import {Course} from './course.model';
+import {Metric} from './metric.model';
 import {ConfigService} from '../config/config.service';
 
 
 @Injectable()
-export class CourseService {
+export class MetricService {
     private baseUrl:string;
 
     constructor(private http:Http, private config:ConfigService) {
-        this.baseUrl = this.config.baseUrl + 'courses/'
+        this.baseUrl = this.config.baseUrl + 'metrics/'
     }
 
 
     /**
-     * Get the list of courses
+     * Get the list of metrics
      */
-    index():Observable<Array<Course>> {
+    index():Observable<Array<Metric>> {
         return this.http.get(this.baseUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -28,45 +28,36 @@ export class CourseService {
 
     /**
      *
-     * Get a specific course
-     * @param id
+     * Add a new metric
+     * @param metric
      * @returns {Observable<R>}
      */
-    public get(id:number) {
-        return this.http.get(this.baseUrl+id)
+    public add(metric:Metric) {
+        return this.http.post(this.baseUrl, JSON.stringify(metric))
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     /**
      *
-     * Add a new course
-     * @param course
+     * Update a metric
+     * @param metric
      * @returns {Observable<R>}
      */
-    public add(course:Course) {
-        return this.http.post(this.baseUrl, JSON.stringify(course))
+    public update(metric:Metric) {
+        return this.http.put(this.baseUrl + metric._id, JSON.stringify(metric))
             .map(this.extractData)
             .catch(this.handleError);
     }
+
     /**
      *
-     * Update a course
-     * @param course
+     * Delete a metric
+     * @param metric
      * @returns {Observable<R>}
      */
-    public update(course:Course) {
-        return this.http.put(this.baseUrl+course._id, JSON.stringify(course))
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-    /**
-     *
-     * Delete a course
-     * @param course
-     * @returns {Observable<R>}
-     */
-    public delete(course:Course) {
-        return this.http.delete(this.baseUrl+course._id)
+    public delete(metric:Metric) {
+        return this.http.delete(this.baseUrl + metric._id)
             .map(res => res.json())
             .catch(this.handleError);
     }
@@ -77,18 +68,31 @@ export class CourseService {
      * @returns {any|{}}
      */
     private extractData(res:Response) {
+
         let body = res.json();
-        if (body){
-            if (body.exams){
-                body.exams.forEach(function (exam) {
-                    if (exam.date){
-                    exam.date=Date.parse(exam.date).toString('yyyy-MM-dd')
-                    }
+        if (body) {
+            if (body instanceof Array) {
+                body.forEach(function (item) {
+                    MetricService.convertDate(item);
                 });
+            } else {
+                MetricService.convertDate(body);
             }
             return body;
         }
-        else return {};
+        return body || {};
+    }
+
+    /**
+     * Convert the metric's date properties
+     * @param metric
+     * @returns {any}
+     */
+    private static convertDate(metric):any{
+        if (metric.birthday) {
+            metric.birthday= Date.parse(metric.birthday).toString('yyyy-MM-dd')
+        }
+        return metric;
     }
 
     /**

@@ -1,0 +1,53 @@
+<metric>
+    <h2>Manage metrics</h2>
+
+    <!-- Add metric -->
+
+    <!-- Button to display/ hide form-->
+    <button *ngIf="!showForm" md-mini-fab class="material-override" (click)="addMetric()">
+        <md-icon>add</md-icon>
+    </button>
+    <button *ngIf="showForm" md-mini-fab class="material-override" (click)="showForm=false">
+        <md-icon>remove</md-icon>
+    </button>
+
+
+    <!--Form-->
+    <form class="form form-small" *ngIf="showForm" [formGroup]="metricForm" (ngSubmit)="submitForm()">
+        <md-card>
+            <md-card-title *ngIf="!selectedMetric._id">Add a new metric</md-card-title>
+            <md-card-title *ngIf="selectedMetric._id">Edit metric</md-card-title>
+            <md-card-content>
+                <div>
+                    <md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input>
+                </div>
+            </md-card-content>
+
+            <md-card-actions align="end">
+                <button md-raised-button class="material-override" type="submit">Submit</button>
+                <button md-raised-button class="material-override warning" (click)="showForm=false">Cancel</button>
+            </md-card-actions>
+        </md-card>
+    </form>
+
+
+    <!--List-->
+    <div *ngIf="!showForm">
+        <h3>List of metrics</h3>
+        <ul class="list divider">
+            <li *ngFor="let metric of metrics; let i=index">
+                <h3> {{metric.name}}</h3>
+                <div>
+                    <button md-raised-button class="material-override" (click)="editMetric(metric)">
+                        <md-icon class="edit center">edit</md-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button md-raised-button class="material-override" (click)="deleteMetric(metric, i)">
+                        <md-icon class="delete center">delete</md-icon>
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</metric>

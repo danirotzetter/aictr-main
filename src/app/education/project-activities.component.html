@@ -1,0 +1,116 @@
+<project-activities *ngIf="project">
+    <h2>{{project.name}} <small>Manage activities</small></h2>
+    <hr>
+    <h3>Statistics</h3>
+    <dl>
+        <dt>Activity count</dt>
+        <dd>{{project.activities.length}}</dd>
+        <dt *ngIf="selectedActivity">Current activity</dt>
+        <dd *ngIf="selectedActivity">{{selectedActivity.name}}, {{selectedActivity.date | stringToDate | date}}</dd>
+    </dl>
+
+    <h3>Activity list</h3>
+
+    <!-- Button to display/ hide form-->
+    <button md-raised-button *ngIf="!showForm" class="material-override" (click)="addActivity()">
+        <md-icon class="center">add</md-icon>
+        <span>Add new activity</span>
+    </button>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <!--Add new activity-->
+        <tr [formGroup]="newActivity" *ngIf="showForm">
+            <td>
+                <input type="hidden" formControlName="_id">
+            </td>
+            <td>
+                <md-input class="input-half-width" type="date" formControlName="date">
+                </md-input>
+            </td>
+            <td><md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input></td>
+            <td>
+                <!-- Actions -->
+                <button md-raised-button class="material-override" (click)="submitActivity()">
+                    <md-icon *ngIf="newActivity.value._id" class="edit center">edit</md-icon>
+                    <md-icon *ngIf="!newActivity.value._id" class="add center">add</md-icon>
+                    <span *ngIf="newActivity.value._id">Update</span>
+                    <span *ngIf="!newActivity.value._id">Add</span>
+                </button>
+                <button md-raised-button *ngIf="showForm" class="material-override warning" (click)="showForm=false">
+                    <md-icon class="center">delete</md-icon>
+                    <span>Cancel</span>
+                </button>
+            </td>
+        </tr>
+        <!-- Validity messages-->
+        <tr *ngIf="showForm && !newActivity.controls.name.untouched && newActivity.controls.name.errors && newActivity.controls.name.errors.required">
+            <td colspan="4" class="form-errors">Required fields are name</td>
+        </tr>
+
+
+        <!-- For each activity, create an entry and a row to be displayed upon click -->
+        <template ngFor [ngForOf]="project.activities" let-activity="
+        $implicit" let-i="index">
+            <!--Highlight activity that is currently being edited -->
+            <tr class="hover" (click)="selectedActivity=activity" [ngClass]="{'info': selectedActivity?._id==activity._id}">
+                <td>{{i+1}}</td>
+                <td><span *ngIf="activity.date">{{activity.date | stringToDate | date}}</span><span *ngIf="!activity.date">Not set</span></td>
+                <td>{{activity.name}}</td>
+                <td>
+                    <!--Actions-->
+                    <button md-raised-button class="material-override" (click)="editActivity(activity, i)">
+                        <md-icon class="edit center">edit</md-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button md-raised-button class="material-override" (click)="deleteActivity(activity, i)">
+                        <md-icon class="delete center">delete</md-icon>
+                        <span>Delete</span>
+                    </button>
+                </td>
+            </tr>
+            <tr *ngIf="selectedActivity==activity && !showForm">
+                <td colspan="4">
+
+                    <!-- List of activity results -->
+                    <table class="table">
+                        <thead>
+                        <tr>
+                           <th>Metric</th>
+                           <th *ngFor="let value of activity.values">
+                               {{value.metric.name}}
+                           </th>
+                            <th *ngIf="activity.values.length==0" rowspan="2"><small>None</small></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Figure</td>
+                            <td *ngFor="let value of activity.values">{{value.figure}}</td>
+                            <td *ngIf="activity.values.length==0" rowspan="2"><small>No value recorded yet</small></td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </td>
+            </tr>
+        </template>
+        </tbody>
+    </table>
+
+    <!-- Actions -->
+    <div>
+        <button md-raised-button class="material-override info" (click)="goBack()">Go back</button>
+    </div>
+</project-activities>

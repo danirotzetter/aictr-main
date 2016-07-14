@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
-import {Grade} from './grade.model';
+import {Value} from './value.model';
 import {ConfigService} from '../config/config.service';
 
 
 @Injectable()
-export class GradeService{
+export class ValueService{
     private baseUrl:string;
 
     constructor(private http:Http, private config:ConfigService){
-        this.baseUrl=this.config.baseUrl+'grades/'
+        this.baseUrl=this.config.baseUrl+'values/'
     }
 
 

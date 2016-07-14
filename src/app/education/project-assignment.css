@@ -1,0 +1,21 @@
+div.flex-parent {
+  display: table;
+  justify-content: space-around;
+  align-items: center;
+  overflow-y: auto;
+  width: 100%; }
+
+div.flex-parent > div {
+  display: table-cell; }
+
+div.flex-parent > div.half-width {
+  width: 50%; }
+
+div.flex-parent div.divider {
+  border-left: 1px dimgrey solid;
+  padding: 1%; }
+
+span.align-right {
+  float: right; }
+
+/*# sourceMappingURL=course-assignment.css.map */

@@ -1,10 +1,10 @@
-<course-overview>
-    <h2>Manage courses</h2>
+<project-overview>
+    <h2>Manage projects</h2>
 
-    <!-- Add course -->
+    <!-- Add project -->
 
     <!-- Button to display/ hide form-->
-    <button *ngIf="!showForm" md-mini-fab class="material-override" (click)="addCourse()">
+    <button *ngIf="!showForm" md-mini-fab class="material-override" (click)="addProject()">
         <md-icon>add</md-icon>
     </button>
     <button *ngIf="showForm" md-mini-fab class="material-override" (click)="showForm=false">
@@ -12,10 +12,10 @@
     </button>
 
     <!--Form-->
-    <form class="form form-small" *ngIf="showForm" [formGroup]="courseForm" (ngSubmit)="submitForm()">
+    <form class="form form-small" *ngIf="showForm" [formGroup]="projectForm" (ngSubmit)="submitForm()">
         <md-card>
-            <md-card-title *ngIf="!selectedCourse._id">Add a new course</md-card-title>
-            <md-card-title *ngIf="selectedCourse._id">Edit course</md-card-title>
+            <md-card-title *ngIf="!selectedProject._id">Add a new project</md-card-title>
+            <md-card-title *ngIf="selectedProject._id">Edit project</md-card-title>
             <md-card-content>
                 <div>
                     <md-input class="input-full-width" placeholder="Name" formControlName="name"></md-input>
@@ -28,7 +28,7 @@
             <!-- Validity messages-->
             <div>
                 <div class="form-errors">
-                    <div *ngIf="(!courseForm.controls.name.untouched && courseForm.controls.name.errors?.required)">
+                    <div *ngIf="(!projectForm.controls.name.untouched && projectForm.controls.name.errors?.required)">
                         Required fields are: name
                     </div>
                 </div>
@@ -45,30 +45,30 @@
 
     <!--List-->
     <div *ngIf="!showForm">
-        <h3>List of courses</h3>
+        <h3>List of projects</h3>
         <ul class="list divider">
-            <li *ngFor="let course of courses; let i=index">
-                <h3> {{course.name}}</h3>
-                <p>Description: <span *ngIf="course.description">{{course.description}}</span><span *ngIf="!course.description">Not set</span></p>
+            <li *ngFor="let project of projects; let i=index">
+                <h3> {{project.name}}</h3>
+                <p>Description: <span *ngIf="project.description">{{project.description}}</span><span *ngIf="!project.description">Not set</span></p>
                 <div>
-                    <button md-raised-button class="material-override" (click)="editCourse(course)">
+                    <button md-raised-button class="material-override" (click)="editProject(project)">
                         <md-icon class="center">edit</md-icon>
                         <span>Edit</span>
                     </button>
-                    <button md-raised-button class="material-override" (click)="deleteCourse(course, i)">
+                    <button md-raised-button class="material-override" (click)="deleteProject(project, i)">
                         <md-icon class="center">delete</md-icon>
                         <span>Delete</span>
                     </button>
-                    <button  md-raised-button class="material-override" (click)="editExams(course)">
+                    <button  md-raised-button class="material-override" (click)="editActivitys(project)">
                         <md-icon class="center">school</md-icon>
-                        <span>Exams</span>
+                        <span>Activitys</span>
                     </button>
-                    <button  md-raised-button class="material-override" (click)="assignStudents(course)">
+                    <button  md-raised-button class="material-override" (click)="assignMetrics(project)">
                         <md-icon class="center">local_library</md-icon>
-                        <span>Assign students</span>
+                        <span>Assign metrics</span>
                     </button>
                 </div>
             </li>
         </ul>
     </div>
-</course-overview>
+</project-overview>

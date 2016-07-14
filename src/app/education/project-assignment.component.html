@@ -1,21 +1,21 @@
-<course-assignment *ngIf="course">
-    <h2>{{course.name}}
-        <small>Assign students</small>
+<project-assignment *ngIf="project">
+    <h2>{{project.name}}
+        <small>Assign metrics</small>
     </h2>
 
 
     <div class="flex-parent">
 
-        <!-- List of assigned students -->
+        <!-- List of assigned metrics -->
         <div class="half-width">
             <div>
-                <h3>Students currently assigned</h3>
+                <h3>Metrics currently assigned</h3>
                 <ul class="list">
-                    <li *ngFor="let student of course.students; let i=index">
-                        <span> {{student.firstName}} {{student.lastName | uppercase}}</span>
+                    <li *ngFor="let metric of project.metrics; let i=index">
+                        <span> {{metric.firstName}} {{metric.lastName | uppercase}}</span>
                         <!-- Unassign-->
                         <span class="align-right">
-                        <button md-mini-fab class="material-override" (click)="unAssign(student, i)">
+                        <button md-mini-fab class="material-override" (click)="unAssign(metric, i)">
                             <md-icon class="md-24">arrow_forward</md-icon>
                         </button>
                             </span>
@@ -28,18 +28,18 @@
 
         <div class="divider"></div>
 
-        <!-- List of students that can be assigned-->
+        <!-- List of metrics that can be assigned-->
         <div class="half-width">
             <div>
-                <h3>Students available</h3>
+                <h3>Metrics available</h3>
                 <ul class="list">
-                    <!--<li *ngFor="let student of students | filterStudents:course.students">-->
-                    <li *ngFor="let student of students | filterStudents:course.students">
+                    <!--<li *ngFor="let metric of metrics | filterMetrics:project.metrics">-->
+                    <li *ngFor="let metric of metrics | filterMetrics:project.metrics">
                         <!-- Assign-->
-                        <button md-mini-fab class="material-override" (click)="assign(student)">
+                        <button md-mini-fab class="material-override" (click)="assign(metric)">
                             <md-icon class="md-24">arrow_back</md-icon>
                         </button>
-                        <span>{{student.firstName}} {{student.lastName | uppercase}}</span>
+                        <span>{{metric.firstName}} {{metric.lastName | uppercase}}</span>
                     </li>
                 </ul>
             </div>
@@ -49,9 +49,9 @@
     <!-- Actions -->
     <md-card-actions align="end">
         <button md-raised-button class="material-override" (click)="save()">Save</button>
-        <button md-raised-button class="material-override warning" (click)="cancel()">Cancel</button>
+        <button md-raised-button class="material-override warning" (click)="cancel()">Cancel/ Revert</button>
         <button md-raised-button class="material-override info" (click)="goBack()">Go back</button>
     </md-card-actions>
 
 
-</course-assignment>
+</project-assignment>

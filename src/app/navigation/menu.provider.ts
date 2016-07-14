@@ -24,31 +24,31 @@ export class MenuProvider {
         'Home page'
     ),
         new MenuItem(
-            'people',
-            '/teachers',
-            'Teachers',
-            'Manage teachers',
+            'public',
+            '/projects',
+            'Projects',
+            'Manage projects',
             'user')
         ,
         new MenuItem(
-            'local_library',
-            '/students',
-            'Students',
-            'Manage students',
+            'school',
+            '/schools',
+            'Schools',
+            'Manage schools',
             'user')
         ,
         new MenuItem(
-            'book',
-            '/courses',
-            'Courses',
-            'Manage courses',
+            'poll',
+            '/metrics',
+            'Metrics',
+            'Manage metrics',
             'user')
         ,
         new MenuItem(
             'functions',
-            '/grades',
-            'Grades',
-            'Manage grades',
+            '/values',
+            'Values',
+            'Manage values',
             'user')
         ,
         new MenuItem(

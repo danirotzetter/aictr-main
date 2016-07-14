@@ -4,13 +4,13 @@ import { provideRouter, RouterConfig } from '@angular/router'
  * Load components
  */
 import {HomeComponent} from './navigation/home.component';
-import {TeacherComponent} from './person/teacher.component';
-import {StudentComponent} from './person/student.component';
-import {CourseMainComponent} from './education/course-main.component';
-import {CourseOverviewComponent} from './education/course-overview.component';
-import {CourseExamsComponent} from './education/course-exams.component';
-import {CourseAssignmentComponent} from './education/course-assignment.component';
-import {GradeComponent} from './education/grade.component';
+import {MetricComponent} from './education/metric.component';
+import {SchoolComponent} from './education/school.component';
+import {ProjectMainComponent} from './education/project-main.component';
+import {ProjectOverviewComponent} from './education/project-overview.component';
+import {ProjectActivitysComponent} from './education/project-activities.component';
+import {ProjectAssignmentComponent} from './education/project-assignment.component';
+import {ValueComponent} from './education/value.component';
 import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './profile/login.component';
 import {LogoutComponent} from './profile/logout.component';
@@ -28,19 +28,19 @@ export const routes: RouterConfig=[
     },
     { path: "home",
         component: HomeComponent },
-    { path: "teachers",
-        component: TeacherComponent },
-    { path: "students",
-        component: StudentComponent },
-    { path: "courses",
-        component: CourseMainComponent,
+    { path: "metrics",
+        component: MetricComponent },
+    { path: "schools",
+        component: SchoolComponent },
+    { path: "projects",
+        component: ProjectMainComponent,
         children: [
-            { path: '', component: CourseOverviewComponent},
-            { path: ':id/exams', component: CourseExamsComponent },
-            { path: ':id/student-assignment', component: CourseAssignmentComponent }
+            { path: '', component: ProjectOverviewComponent},
+            { path: ':id/activities', component: ProjectActivitysComponent },
+            { path: ':id/metric-assignment', component: ProjectAssignmentComponent }
         ]},
-    { path: "grades",
-        component: GradeComponent },
+    { path: "values",
+        component: ValueComponent },
     { path: "profile",
         component: ProfileComponent },
     { path: "login",

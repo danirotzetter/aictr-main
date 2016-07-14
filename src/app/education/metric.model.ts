@@ -1,8 +1,7 @@
-export class Exam{
+export class Metric {
     public _id: number;
-    public date: Date;
     public name: String;
-    
+
     constructor(values: Object = {}) {
         Object.assign(this, values);
     }
