@@ -23,6 +23,7 @@
         <tr>
             <th>#</th>
             <th>Name</th>
+            <th>Used metrics</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -54,13 +55,19 @@
         </tr>
 
 
-        <!-- For each activity, create an entry and a row to be displayed upon click -->
+        <!-- For each activity, create an entry and a row to be displayed upon click. Using a template such that we can multiple tr elements for each project activity -->
         <template ngFor [ngForOf]="project.activities" let-activity="
         $implicit" let-i="index">
             <!--Highlight activity that is currently being edited -->
             <tr class="hover" (click)="selectedActivity=activity" [ngClass]="{'info': selectedActivity?._id==activity._id}">
                 <td>{{i+1}}</td>
                 <td>{{activity.name}}</td>
+                <td>
+                    <span *ngIf="activity.metrics.length==0">-</span>
+                    <ul *ngIf="activity.metrics.length>0">
+                        <li *ngFor="let metric of activity.metrics">{{metric.name}}</li>
+                    </ul>
+                </td>
                 <td>
                     <!--Actions-->
                     <button md-raised-button class="material-override" (click)="editActivity(activity, i)">
