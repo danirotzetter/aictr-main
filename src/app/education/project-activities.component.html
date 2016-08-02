@@ -1,5 +1,7 @@
 <project-activities *ngIf="project">
-    <h2>{{project.name}} <small>Manage activities</small></h2>
+    <h2>{{project.name}}
+        <small>Manage activities</small>
+    </h2>
     <hr>
     <h3>Statistics</h3>
     <dl>
@@ -34,7 +36,9 @@
             <td>
                 <input type="hidden" formControlName="_id">
             </td>
-            <td><md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input></td>
+            <td>
+                <md-input class="input-half-width" placeholder="Name" formControlName="name"></md-input>
+            </td>
             <td>
                 <!-- Actions -->
                 <button md-raised-button class="material-override" (click)="submitActivity()">
@@ -59,17 +63,18 @@
         <template ngFor [ngForOf]="project.activities" let-activity="
         $implicit" let-i="index">
             <!--Highlight activity that is currently being edited -->
-            <tr class="hover" (click)="selectedActivity=activity" [ngClass]="{'info': selectedActivity?._id==activity._id}">
+            <tr class="hover" (click)="selectedActivity=activity"
+                [ngClass]="{'info': selectedActivity?._id==activity._id}">
                 <td>{{i+1}}</td>
                 <td>{{activity.name}}</td>
                 <td>
                     <span *ngIf="activity.metrics.length==0">-</span>
-                    <ul *ngIf="activity.metrics.length>0">
+                    <ul *ngIf="activity.metrics.length>0" class="metrics-list">
                         <li *ngFor="let metric of activity.metrics">{{metric.name}}</li>
                     </ul>
                 </td>
                 <td>
-                    <!--Actions-->
+                    <!--Actions for the activity-->
                     <button md-raised-button class="material-override" (click)="editActivity(activity, i)">
                         <md-icon class="edit center">edit</md-icon>
                         <span>Edit</span>
@@ -78,12 +83,14 @@
                         <md-icon class="delete center">delete</md-icon>
                         <span>Delete</span>
                     </button>
-                    <button  md-raised-button class="material-override" (click)="assignMetrics(activity)">
+                    <button md-raised-button class="material-override" (click)="assignMetrics(activity)">
                         <md-icon class="center">poll</md-icon>
                         <span>Assign metrics</span>
                     </button>
                 </td>
             </tr>
+
+            <!-- START display selected activity -->
             <tr *ngIf="selectedActivity==activity && !showForm">
                 <td colspan="3">
 
@@ -91,18 +98,21 @@
                     <table class="table">
                         <thead>
                         <tr>
-                           <th>Metric</th>
-                           <th *ngFor="let value of activity.values">
-                               {{value.metric.name}}
-                           </th>
-                            <th *ngIf="activity.values.length==0" rowspan="2"><small>None</small></th>
+                            <th>Metric</th>
+                            <td>Figure</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Figure</td>
-                            <td *ngFor="let value of activity.values">{{value.figure}}</td>
-                            <td *ngIf="activity.values.length==0" rowspan="2"><small>No value recorded yet</small></td>
+                        <!-- List of values-->
+                        <tr *ngFor="let value of activity.values">
+                            <!-- Metric name-->
+                            <td *ngIf="activity.values.length>0">
+                                {{value.metric.name}}
+                            </td>
+                            <!-- Actual value -->
+                            <td *ngIf="activity.values.length>0">{{value.figure}}</td>
+                        <!-- Display empty row if no figure captured yet-->
+                            <td *ngIf="activity.values.length==0" colspan="2">No value recorded yet</td>
                         </tr>
                         </tbody>
                     </table>
@@ -110,6 +120,7 @@
 
                 </td>
             </tr>
+            <!-- END display selected activity -->
         </template>
         </tbody>
     </table>

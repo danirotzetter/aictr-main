@@ -11,7 +11,7 @@
             <div>
                 <h3>Metrics currently assigned</h3>
                 <ul class="list">
-                    <li *ngFor="let metric of project.metrics; let i=index">
+                    <li *ngFor="let metric of getActivity()?.metrics; let i=index">
                         <span> {{metric.name}}</span>
                         <!-- Unassign-->
                         <span class="align-right">
@@ -34,7 +34,7 @@
                 <h3>Metrics available</h3>
                 <ul class="list">
                     <!--<li *ngFor="let metric of metrics | filterMetrics:project.metrics">-->
-                    <li *ngFor="let metric of metrics | filterMetrics:project.metrics">
+                    <li *ngFor="let metric of metrics | filterMetrics:getActivity()?.metrics">
                         <!-- Assign-->
                         <button md-mini-fab class="material-override" (click)="assign(metric)">
                             <md-icon class="md-24">arrow_back</md-icon>

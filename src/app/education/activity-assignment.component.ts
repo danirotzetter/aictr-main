@@ -101,7 +101,7 @@ export class ActivityAssignmentComponent {
      * @param metric
      */
     assign(metric:Metric){
-        this.project.metrics.push(metric);
+        this.getActivity().metrics.push(metric);
     }
     /**
      * Remove a metric from the project
@@ -109,7 +109,7 @@ export class ActivityAssignmentComponent {
      * @param idx
      */
     unAssign(metric:Metric, idx:number){
-        this.project.metrics.splice(idx, 1);
+        this.getActivity().metrics.splice(idx, 1);
     }
 
     /**

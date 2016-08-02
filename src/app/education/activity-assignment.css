@@ -18,4 +18,10 @@ div.flex-parent div.divider {
 span.align-right {
   float: right; }
 
-/*# sourceMappingURL=course-assignment.css.map */
+ul.metrics-list {
+  padding-left: 0; }
+
+ul.metrics-list li {
+  list-style-type: none; }
+
+/*# sourceMappingURL=activity-assignment.css.map */
