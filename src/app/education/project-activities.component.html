@@ -111,8 +111,10 @@
                             </td>
                             <!-- Actual value -->
                             <td *ngIf="activity.values.length>0">{{value.figure}}</td>
+                        </tr>
                         <!-- Display empty row if no figure captured yet-->
-                            <td *ngIf="activity.values.length==0" colspan="2">No value recorded yet</td>
+                        <tr *ngIf="activity.values.length==0">
+                            <td colspan="2">No value recorded yet</td>
                         </tr>
                         </tbody>
                     </table>

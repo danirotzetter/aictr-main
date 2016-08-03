@@ -98,6 +98,24 @@ textarea {
 form.form-small {
   max-width: 600px; }
 
+fieldset {
+  width: 60em; }
+
+label.field {
+  text-align: right;
+  width: 10em;
+  float: left;
+  font-weight: bold;
+  margin-right: 3em; }
+
+input.field, select.field {
+  width: 30em;
+  float: left; }
+
+fieldset p {
+  clear: both;
+  padding: 5px; }
+
 ul.list {
   padding-left: 0; }
 

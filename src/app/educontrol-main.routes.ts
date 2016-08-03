@@ -10,7 +10,9 @@ import {ProjectMainComponent} from './education/project-main.component';
 import {ProjectOverviewComponent} from './education/project-overview.component';
 import {ProjectActivitiesComponent} from './education/project-activities.component';
 import {ActivityAssignmentComponent} from './education/activity-assignment.component';
-import {ValueComponent} from './education/value.component';
+import {ValueMainComponent} from './education/value-main.component';
+import {ValueCaptureComponent} from './education/value-capture.component';
+import {ValueOverviewComponent} from "./education/value-overivew.component";
 import {ProfileComponent} from './profile/profile.component';
 import {LoginComponent} from './profile/login.component';
 import {LogoutComponent} from './profile/logout.component';
@@ -55,7 +57,11 @@ export const routes:RouterConfig = [
     },
     {
         path: "values",
-        component: ValueComponent
+        component: ValueMainComponent,
+        children: [
+            {path: '', component: ValueOverviewComponent},
+            {path: 'capture', component: ValueCaptureComponent}
+        ]
     },
     {
         path: "profile",

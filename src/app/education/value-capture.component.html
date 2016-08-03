@@ -1,0 +1,46 @@
+<value-capture><h2>Capture value</h2>
+    <p>test val {{value.date | stringToDate| date:'shortDate'}}</p>
+<p>Test project {{value?.project | json}}</p>
+<p *ngIf="value.project">Test activities {{value.project.activities | json}}</p>
+
+    <!--Capture value form-->
+    <form>
+        <fieldset>
+            <!--Date-->
+            <p>
+                <label class="field" for="date">Date</label>
+                <input class="field" #dt type="date" id="date" value="{{value.date | date:'yyyy-MM-dd'}}"
+                       (input)="value.date=dt.value">
+            </p>
+
+            <!--School-->
+            <p>
+                <label class="field" for="schoolSelect">School</label>
+                <select class="field" id="schoolSelect" name="schoolSelect" [ngModel]="schoolId" (ngModelChange)="selectSchool($event)">
+                    <option *ngFor="let school of schools; let i=index" [value]="school._id">{{school.name}}</option>
+                </select>
+            </p>
+            <p>
+                <!--Project-->
+                <label class="field" for="projectSelect">Project</label>
+                <select class="field" id="projectSelect" name="projectSelect" [ngModel]="projectId" (ngModelChange)="selectProject($event)">
+                    <option *ngFor="let project of projects; let i=index" [value]="project._id">{{project.name}}</option>
+                </select>
+            </p>
+            <!--Activity-->
+            <p>
+                <label class="field" for="activitySelect">Activity</label>
+                <select class="field" id="activitySelect" name="activitySelect" *ngIf="value.project" [ngModel]="activityId" (ngModelChange)="selectActivity($event)">
+                    <option *ngFor="let activity of value.project.activities; let i=index" [value]="activity._id">{{activity.name}}</option>
+                </select>
+                <select class="field" *ngIf="!value.project">
+                    <option selected>Please select a project first</option>
+                </select>
+            </p>
+        </fieldset>
+
+        <!--Actions-->
+        <button md-raised-button class="material-override" type="submit">Submit</button>
+        <button md-raised-button class="material-override warning" (click)="showForm=false">Cancel</button>
+    </form>
+</value-capture>

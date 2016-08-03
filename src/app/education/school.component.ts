@@ -1,6 +1,4 @@
 import{Component, OnInit, EventEmitter, Output} from '@angular/core';
-import{SchoolService} from './school.service'
-import{School} from './school.model'
 import {MdButton} from '@angular2-material/button';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
@@ -16,6 +14,8 @@ import {REACTIVE_FORM_DIRECTIVES,FormGroup, FormBuilder, Validators} from '@angu
 import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
 import {StringToDatePipe} from '../base/string-to-date.pipe';
+import{SchoolService} from './school.service'
+import{School} from './school.model'
 
 // External libraries
 declare var Date:any;

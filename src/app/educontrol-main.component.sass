@@ -1,3 +1,8 @@
+///
+/// =============================
+/// START General layout settings
+/// =============================
+///
 // General page settings
 .page
   margin: 2% 5% 2% 5%
@@ -22,11 +27,18 @@ div.header button
 
 h2
   font-family: Roboto, "Helvetica Neue", sans-serif
+///
+/// =============================
+/// END General layout settings
+/// =============================
+///
 
 
-//
-// Override angular2 material colors to the ones from bootstrap
-//
+///
+/// ==================================================================
+/// START Override angular2 material colors to the ones from bootstrap
+/// ==================================================================
+///
 button.material-override, button.material-override.primary
   color: #fff
   background-color: #337ab7
@@ -72,9 +84,19 @@ md-icon.center
   vertical-align: middle
 // Mini-version of buttons
 button.material-override.md-24
+///
+/// ==================================================================
+/// END Override angular2 material colors to the ones from bootstrap
+/// ==================================================================
+///
 
+///
+/// =============
+/// START FORMS
+/// =============
+///
 
-// Forms
+// START general bootstrap adjustments
 .form-errors
   color: darkred
 // Adapt textarea to match with bootstrap
@@ -93,6 +115,39 @@ textarea
   width: 49% // Not 50 in order to be able to consider margins and still position two elements next to each other
 form.form-small
   max-width: 600px
+// END general bootstrap adjustments
+
+
+// START custom non-bootstrap forms
+fieldset
+  width: 60em
+label.field
+  text-align: right
+  width: 10em
+  float: left
+  font-weight: bold
+  margin-right: 3em
+input.field, select.field
+  width: 30em
+  float: left
+fieldset p
+  clear: both
+  padding: 5px
+// END custom non-bootstrap forms
+
+
+///
+/// =============
+/// END FORMS
+/// =============
+///
+
+
+///
+/// ===================
+/// START List handling
+/// ===================
+///
 // List of items
 ul.list
   padding-left: 0 // Remove indent
@@ -111,4 +166,8 @@ ul.list
   margin-bottom: 1em
   background: #bdc7c6
   transform: translate(0, 2em)
-
+///
+/// ===================
+/// END List handling
+/// ===================
+///
