@@ -1,46 +1,99 @@
-<value-capture><h2>Capture value</h2>
-    <p>test val {{value.date | stringToDate| date:'shortDate'}}</p>
-<p>Test project {{value?.project | json}}</p>
-<p *ngIf="value.project">Test activities {{value.project.activities | json}}</p>
-
+<value-capture>
     <!--Capture value form-->
-    <form>
-        <fieldset>
-            <!--Date-->
-            <p>
-                <label class="field" for="date">Date</label>
-                <input class="field" #dt type="date" id="date" value="{{value.date | date:'yyyy-MM-dd'}}"
-                       (input)="value.date=dt.value">
-            </p>
+    <!--Test values {{valueForm.value | json}}-->
+    <form class="form-errors form-small" [formGroup]="valueForm" (ngSubmit)="submitForm()">
 
-            <!--School-->
-            <p>
-                <label class="field" for="schoolSelect">School</label>
-                <select class="field" id="schoolSelect" name="schoolSelect" [ngModel]="schoolId" (ngModelChange)="selectSchool($event)">
-                    <option *ngFor="let school of schools; let i=index" [value]="school._id">{{school.name}}</option>
-                </select>
-            </p>
-            <p>
-                <!--Project-->
-                <label class="field" for="projectSelect">Project</label>
-                <select class="field" id="projectSelect" name="projectSelect" [ngModel]="projectId" (ngModelChange)="selectProject($event)">
-                    <option *ngFor="let project of projects; let i=index" [value]="project._id">{{project.name}}</option>
-                </select>
-            </p>
-            <!--Activity-->
-            <p>
-                <label class="field" for="activitySelect">Activity</label>
-                <select class="field" id="activitySelect" name="activitySelect" *ngIf="value.project" [ngModel]="activityId" (ngModelChange)="selectActivity($event)">
-                    <option *ngFor="let activity of value.project.activities; let i=index" [value]="activity._id">{{activity.name}}</option>
-                </select>
-                <select class="field" *ngIf="!value.project">
-                    <option selected>Please select a project first</option>
-                </select>
-            </p>
-        </fieldset>
+        <md-card>
 
-        <!--Actions-->
-        <button md-raised-button class="material-override" type="submit">Submit</button>
-        <button md-raised-button class="material-override warning" (click)="showForm=false">Cancel</button>
+            <md-card-title>Capture a value</md-card-title>
+
+            <md-card-content>
+                <fieldset>
+                    <!--Date-->
+                    <p>
+                        <label class="field" for="date">Date</label>
+                        <input class="field" #dt type="date" id="date" value="{{date | date:'yyyy-MM-dd'}}"
+                               (input)="date=dt.value">
+                    </p>
+
+                    <!--School-->
+                    <p>
+                        <label class="field" for="schoolSelect">School</label>
+                        <select formControlName="school" class="field" id="schoolSelect" name="schoolSelect"
+                                [ngModel]="schoolId"
+                                (ngModelChange)="selectSchool($event)">
+                            <option *ngFor="let school of schools; let i=index" [value]="school._id">{{school.name}}
+                            </option>
+                        </select>
+                    </p>
+                    <p>
+                        <!--Project-->
+                        <label class="field" for="projectSelect">Project</label>
+                        <select formControlName="project" class="field" id="projectSelect" name="projectSelect"
+                                [ngModel]="projectId"
+                                (ngModelChange)="selectProject($event)">
+                            <option *ngFor="let project of projects; let i=index" [value]="project._id">
+                                {{project.name}}
+                            </option>
+                        </select>
+                    </p>
+                    <!--Activity-->
+                    <p>
+                        <label class="field" for="activitySelect">Activity</label>
+                        <select formControlName="activity" class="field" id="activitySelect" name="activitySelect"
+                                *ngIf="activities"
+                                [ngModel]="activityId" (ngModelChange)="selectActivity($event)">
+                            <option *ngFor="let activity of activities; let i=index"
+                                    [value]="activity._id">{{activity.name}}
+                            </option>
+                        </select>
+                        <select class="field" *ngIf="!activities">
+                            <option selected>Please select a project first</option>
+                        </select>
+                        <select class="field" *ngIf="activities.length==0 && valueForm.project">
+                            <option selected>This project has not defined any activity</option>
+                        </select>
+                    </p>
+
+
+                    <!--Metrics-->
+                    <div>
+                        <p></p>
+                        <h4>Figures</h4>
+                        <p *ngFor="let metricValue of metricValues; let i=index">
+                            <label class="field" [attr.for]="'metric'+i">{{metricValues[i].metric.name}}</label>
+                            <input type="number" class="field" [attr.id]="'metric'+i" [(ngModel)]="metricValues[i].figure" [ngModelOptions]="{standalone:true}">
+                        </p>
+                        <p *ngIf="!valueForm.controls.activity?.value">Select an activity first</p>
+                        <p *ngIf="valueForm.controls.activity && valueForm.controls.value && metrics.length==0">This activity has no metrics defined yet</p>
+                    </div>
+                </fieldset>
+
+                <!--Error messages-->
+                <div class="form-errors">
+                    <div *ngIf="(!valueForm.controls.school.untouched && valueForm.controls.school.errors?.required)">
+                        Select a school
+                    </div>
+                    <div *ngIf="(!valueForm.controls.project.untouched && !valueForm.controls.activity && activities.length>0)">
+                        Select an activity
+                    </div>
+                    <div *ngIf="(!valueForm.controls.project.untouched && activities.length==0)">
+                        You must select a project that has at least one activity
+                    </div>
+                    <div *ngIf="!date">
+                        Please select a date
+                    </div>
+                </div>
+
+            </md-card-content>
+
+            <!--Actions-->
+            <md-card-actions align="end">
+                <button md-raised-button class="material-override" type="submit" [disabled]="!valueForm.valid || !date">
+                    Submit
+                </button>
+                <button md-raised-button class="material-override warning" (click)="showForm=false">Cancel</button>
+            </md-card-actions>
+        </md-card>
     </form>
 </value-capture>

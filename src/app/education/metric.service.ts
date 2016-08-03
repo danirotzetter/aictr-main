@@ -1,12 +1,12 @@
 import '../../lib/date-1.0.0.min.js'
 declare var Date:any;
 
+import 'rxjs/Rx';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
 import {Metric} from './metric.model';
 import {ConfigService} from '../config/config.service';
-
 
 @Injectable()
 export class MetricService {
