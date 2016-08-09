@@ -26,14 +26,30 @@ export class MenuProvider {
             new MenuItem(
                 'settings',
                 '',
-                'Settings',
+                'Administration',
                 'Manage items and lists',
                 [
                     new MenuItem(
-                        'public',
+                        'my_library_books',
                         '/projects',
                         'Projects',
                         'Manage projects',
+                        undefined,
+                        'user')
+                    ,
+                    new MenuItem(
+                        'public',
+                        '/regions',
+                        'Regions',
+                        'Manage regions',
+                        undefined,
+                        'user')
+                    ,
+                    new MenuItem(
+                        'zoom_out_map',
+                        '/districts',
+                        'Districts',
+                        'Manage districts',
                         undefined,
                         'user')
                     ,
@@ -68,14 +84,21 @@ export class MenuProvider {
                 '/values',
                 'M & E',
                 'Activities, alerts, metrics',
-                [new MenuItem(
-                    'functions',
-                    '/values',
-                    'Values',
-                    'Manage values',
-                    undefined,
-                    'user')
-
+                [
+                    new MenuItem(
+                        'functions',
+                        '/values',
+                        'Values',
+                        'Overview of values',
+                        undefined,
+                        'user'),
+                    new MenuItem(
+                        'mode_edit',
+                        '/values/capture',
+                        'Capture',
+                        'Manage values',
+                        undefined,
+                        'user')
                 ],
                 'user')
             ,

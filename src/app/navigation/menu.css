@@ -8,7 +8,6 @@ div.subMenuItem {
   border-radius: 0 0 25px 25px; }
 
 md-list-item.menuItem div.md-list-item:hover {
-  outline: inherit;
-  background: inherit; }
+  background: aliceblue; }
 
 /*# sourceMappingURL=menu.css.map */

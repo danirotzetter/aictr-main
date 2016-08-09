@@ -1,8 +1,6 @@
-import {District} from './district.model';
-export class School {
+export class District {
     public _id: number;
     public name: String;
-    public district: District;
 
     constructor(values: Object = {}) {
         Object.assign(this, values);

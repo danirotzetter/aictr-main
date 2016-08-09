@@ -12,6 +12,7 @@ import {DATEPICKER_DIRECTIVES} from 'ng2-bootstrap/ng2-bootstrap';
 import {AlertMessage, AlertMessageType} from '../base/alert-message';
 import {AlertMessageService} from '../base/alert-message.service';
 import{SchoolService} from './school.service'
+import{UserService} from '../profile/user.service'
 import{School} from './school.model'
 import{ProjectService} from './project.service'
 import{Project} from './project.model'
@@ -54,7 +55,7 @@ export class ValueCaptureComponent {
     metricValues:MetricValue[]; // List of the actual values for each metric
     date:Date; // Date handling separate of the form due to angular2 and form restrictions
 
-    constructor(private fb:FormBuilder, private valueSvc:ValueService, private schoolSvc:SchoolService, private projectSvc:ProjectService, private alertMessageService:AlertMessageService) {
+    constructor(private fb:FormBuilder, private valueSvc:ValueService, private schoolSvc:SchoolService, private projectSvc:ProjectService, private userSvc:UserService, private alertMessageService:AlertMessageService) {
     }
 
     /**
@@ -71,6 +72,7 @@ export class ValueCaptureComponent {
     resetForm() {
         this.valueForm = this.fb.group({
             school: ['', Validators.required],
+            user: ['', Validators.required],
             project: [''], // Not required - is defined through activity
             activity: ['', Validators.required]
         });
@@ -105,6 +107,13 @@ export class ValueCaptureComponent {
      * @param schoolId
      */
     selectSchool(schoolId) {
+    }
+
+    /**
+     * Select a user for the value
+     * @param userId
+     */
+    selectUser(userId) {
     }
 
     /**

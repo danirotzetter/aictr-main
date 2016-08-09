@@ -101,7 +101,7 @@ export class EducontrolMainAppComponent {
     public selectMenuItem(menuItem:MenuItem){
         // Expand this menuItem only
         for(var j=0; j<this.menu.length; j++){
-            this.menu[j].open=(menuItem==this.menu[j]);
+            this.menu[j].open=(menuItem==this.menu[j]) && !this.menu[j].open; // Last boolean value to close already-open elements
         }
     }
 }

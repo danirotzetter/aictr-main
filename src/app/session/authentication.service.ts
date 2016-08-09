@@ -3,7 +3,7 @@ import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {Http} from '@angular/http';
 import {ConfigService} from '../config/config.service';
-import {User} from '../profile/user'
+import {User} from '../profile/user.model'
 
 
 @Injectable()

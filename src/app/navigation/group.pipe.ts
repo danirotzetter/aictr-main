@@ -28,6 +28,6 @@ export class GroupPipe implements PipeTransform {
         var isLoggedIn = this.auth.isLoggedIn();
 
         return items.filter(item =>
-        (item.groupRequired == 'user' && isLoggedIn) || (item.groupRequired == 'no-user' && !isLoggedIn));
+        (item.groupRequired==undefined) || (item.groupRequired == 'user' && isLoggedIn) || (item.groupRequired == 'no-user' && !isLoggedIn));
     }
 }
