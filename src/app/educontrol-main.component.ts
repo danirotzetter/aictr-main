@@ -13,6 +13,7 @@ import {AlertComponent } from 'ng2-bootstrap/components/alert';
  * Import custom items
  */
 import {MenuProvider} from './navigation/menu.provider';
+import {MenuItem} from './navigation/menu-item';
 import {ConfigService} from './config/config.service';
 import {GroupPipe} from './navigation/group.pipe';
 import {AlertMessage, AlertMessageType} from './base/alert-message';
@@ -90,6 +91,18 @@ export class EducontrolMainAppComponent {
      */
     onAlertMessageAdded(alertMessage: AlertMessage) {
         this.alertMessages.push(alertMessage);
+    }
+
+
+    /**
+     * User selecting a top-menu item
+     * @param i
+     */
+    public selectMenuItem(menuItem:MenuItem){
+        // Expand this menuItem only
+        for(var j=0; j<this.menu.length; j++){
+            this.menu[j].open=(menuItem==this.menu[j]);
+        }
     }
 }
 

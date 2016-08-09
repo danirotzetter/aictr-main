@@ -1,35 +1,55 @@
 <md-sidenav-layout fullscreen class="app-container">
 
-  <!-- Menu -->
-  <md-sidenav #sidenav mode="side" opened="true">
-    <md-nav-list>
-      <a [routerLink]="[item.link]" md-list-item *ngFor="let item of menu | groupFilter">
-        <md-icon md-list-icon>{{item.icon}}</md-icon>
-        <span md-line>{{item.name}}</span>
-        <span *ngIf="item.description" md-line class="secondary">{{item.description}}</span>
-      </a>
-    </md-nav-list>
-  </md-sidenav>
+    <!-- Menu -->
+    <md-sidenav #sidenav mode="side" opened="true">
+        <md-nav-list>
+            <div *ngFor="let item of menu  | groupFilter; let i=index">
 
-  <!--Toolbar-->
-  <div class="header">
-    <div class="header-img"></div>
-    <button md-button (click)="sidenav.toggle()">
-      <md-icon class="center">menu</md-icon  >
-    </button>
-    <a [routerLink]="''"><span class="logo"></span></a>
-  </div>
+                <md-list-item class="menuItem"
+                              (click)="selectMenuItem(item)"
+                >
+                    <!--Main menu item-->
+                        <md-icon md-list-icon>{{item.icon}}</md-icon>
+                        <span md-line>{{item.name}}</span>
+                        <span *ngIf="item.description" md-line class="secondary">{{item.description}}</span>
+                </md-list-item>
+                <!--Sub-menu-->
+                <div *ngIf="item.subMenu && item.open" class="subMenuItem">
+                    <div *ngFor="let subItem of item.subMenu"
+                         [routerLink]="[subItem.link]"
+                     >
+                         <md-list-item>
+                            <md-icon md-list-icon>{{subItem.icon}}</md-icon>
+                            <span md-line>{{subItem.name}}</span>
+                            <span *ngIf="subItem.description" md-line class="secondary">{{subItem.description}}</span>
+                        </md-list-item>
+                    </div>
+                </div>
+            </div>
+            <!--End for each main menu item-->
+        </md-nav-list>
+    </md-sidenav>
 
-  <!--Content-->
+    <!--Toolbar-->
+    <div class="header">
+        <div class="header-img"></div>
+        <button md-button (click)="sidenav.toggle()">
+            <md-icon class="center">menu</md-icon>
+        </button>
+        <a [routerLink]="''"><span class="logo"></span></a>
+    </div>
 
-<!-- Display alerts-->
-  <alert *ngFor="let alertMessage of alertMessages;let i = index" [type]="alertMessage.type" dismissible="true" (close)="closeAlert(i)" dismissOnTimeout="{{alertMessage.dismissOnTimeout}}">
-    {{ alertMessage?.message }}
-  </alert>
+    <!--Content-->
+
+    <!-- Display alerts-->
+    <alert *ngFor="let alertMessage of alertMessages;let i = index" [type]="alertMessage.type" dismissible="true"
+           (close)="closeAlert(i)" dismissOnTimeout="{{alertMessage.dismissOnTimeout}}">
+        {{ alertMessage?.message }}
+    </alert>
 
 
     <div class="page">
-  <router-outlet></router-outlet>
+        <router-outlet></router-outlet>
     </div>
 
 </md-sidenav-layout>

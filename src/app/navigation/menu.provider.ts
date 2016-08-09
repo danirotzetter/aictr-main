@@ -14,67 +14,88 @@ export class MenuProvider {
     private menu:Array<MenuItem>;
 
     constructor() {
-    /**
-     * Set up the menu
-     */
-    this.menu = [new MenuItem(
-        'home',
-        '/home',
-        'Home',
-        'Home page'
-    ),
-        new MenuItem(
-            'public',
-            '/projects',
-            'Projects',
-            'Manage projects',
-            'user')
-        ,
-        new MenuItem(
-            'school',
-            '/schools',
-            'Schools',
-            'Manage schools',
-            'user')
-        ,
-        new MenuItem(
-            'poll',
-            '/metrics',
-            'Metrics',
-            'Manage metrics',
-            'user')
-        ,
-        new MenuItem(
-            'functions',
-            '/values',
-            'Values',
-            'Manage values',
-            'user')
-        ,
-        new MenuItem(
-            'account_circle',
-            '/profile',
-            'Profile',
-            'Manage Profile',
-            'user')
-        ,
-        new MenuItem(
-            'vpn_key',
-            '/login',
-            'Login',
-            undefined,
-            'no-user')
-        ,
-        new MenuItem(
-            'exit_to_app',
-            '/logout',
-            'Logout',
-            undefined,
-            'user')
-    ]
+        /**
+         * Set up the menu
+         */
+        this.menu = [new MenuItem(
+            'home',
+            '/home',
+            'Home',
+            'Home page'
+        ),
+            new MenuItem(
+                'settings',
+                '',
+                'Settings',
+                'Manage items and lists',
+                [
+                    new MenuItem(
+                        'public',
+                        '/projects',
+                        'Projects',
+                        'Manage projects',
+                        undefined,
+                        'user')
+                    ,
+                    new MenuItem(
+                        'school',
+                        '/schools',
+                        'Schools',
+                        'Manage schools',
+                        undefined,
+                        'user')
+                    ,
+                    new MenuItem(
+                        'poll',
+                        '/metrics',
+                        'Metrics',
+                        'Manage metrics',
+                        undefined,
+                        'user')
+                    ,
+                    new MenuItem(
+                        'account_circle',
+                        '/profile',
+                        'Profile',
+                        'Manage Profile',
+                        undefined,
+                        'user')
+                ],
+                'user')
+            ,
+            new MenuItem(
+                'assignment',
+                '/values',
+                'M & E',
+                'Activities, alerts, metrics',
+                [new MenuItem(
+                    'functions',
+                    '/values',
+                    'Values',
+                    'Manage values',
+                    undefined,
+                    'user')
+
+                ],
+                'user')
+            ,
+            new MenuItem(
+                'vpn_key',
+                '/login',
+                'Login',
+                undefined,
+                undefined,
+                'no-user')
+            ,
+            new MenuItem(
+                'exit_to_app',
+                '/logout',
+                'Logout',
+                undefined,
+                undefined,
+                'user')
+        ]
     }
-
-
 
 
     /**
